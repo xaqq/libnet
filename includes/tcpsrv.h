@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 16:43:52 2012 arnaud kapp
-** Last update Wed Feb 29 13:38:05 2012 arnaud kapp
+** Last update Mon Apr  2 17:56:01 2012 arnaud kapp
 */
 
 #ifndef	TCPSRV_H
@@ -44,5 +44,6 @@ void	tcpsrv_delete(void);
 int	tcpsrv_create(void);
 int	tcpsrv_listen(int max);
 int	tcpsrv_bind(unsigned short port);
+int	tcpsrv_run();
 
 #endif
