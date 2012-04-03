@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:13:07 2012 arnaud kapp
-** Last update Wed Feb 29 13:38:38 2012 arnaud kapp
+** Last update Tue Apr  3 16:15:11 2012 arnaud kapp
 */
 
 #ifndef	INTERNAL_H

@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Tue Apr  3 11:50:49 2012 arnaud kapp
+** Last update Tue Apr  3 16:42:15 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -35,7 +35,7 @@ static int		check_new_connection()
 		    &sclient_l, SOCK_NONBLOCK)) != -1)
     {
       c = tcpclient_create(fd);
-      e.events = EPOLLIN | EPOLLRDHUP;
+      e.events = EPOLLIN | EPOLLRDHUP | EPOLLOUT;
       e.data.fd = c->sock.fd;
       epoll_ctl(get_epoll_fd(), EPOLL_CTL_ADD, c->sock.fd, &e);
       __cb_new_connection(&(c->data));
@@ -78,19 +78,23 @@ static void		incomming_data(TcpClient *c)
   __cb_incomming_data(c);
 }
 
-static void		disconnection(TcpClient *c)
+static int		disconnection(TcpClient *c)
 {
   printf("Disconnection of one client...\n");
   tcpclient_delete(c);
+  return (1);
 }
 
-int			tcpsrv_run()
+/*
+** Attention code autiste a cause de la norme
+*/
+int			tcpsrv_run(int timeout)
 {
   struct epoll_event	events[42];
   int			ne;
   int			i;
   
-  ne = epoll_wait(get_epoll_fd(), events, 42, 0);
+  ne = epoll_wait(get_epoll_fd(), events, 42, timeout);
   i = 0;
   while (i < ne)
     {
@@ -99,9 +103,11 @@ int			tcpsrv_run()
       else
 	{
 	  if (events[i].events & EPOLLRDHUP)
-	    disconnection(fd_to_client(events[i].data.fd));
-	  else if (events[i].events & EPOLLIN)
+	    return (disconnection(fd_to_client(events[i].data.fd)));
+	  if (events[i].events & EPOLLIN)
 	    incomming_data(fd_to_client(events[i].data.fd));
+	  if (events[i].events & EPOLLOUT)
+	    write_to_sock(fd_to_client(events[i].data.fd));
 	}
       i++;
     }

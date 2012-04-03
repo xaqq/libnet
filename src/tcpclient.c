@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:51:37 2012 arnaud kapp
-** Last update Tue Apr  3 11:36:36 2012 arnaud kapp
+** Last update Tue Apr  3 16:34:49 2012 arnaud kapp
 */
 
 #include <sys/epoll.h>
@@ -13,6 +13,7 @@
 #include "tcpsrv_i.h"
 #include "tcpclient.h"
 
+__attribute__((visibility("internal")))
 TcpClient	*tcpclient_create(int fd)
 {
   TcpClient	*c;
@@ -25,7 +26,8 @@ TcpClient	*tcpclient_create(int fd)
   c->prev = NULL;
   c->next = __tcp_clients;
   c->sock.buffer = rgbuf_create(RGBUF_SIZE);
-  if (!c->sock.buffer)
+  c->sock.wbuffer = rgbuf_create(RGBUF_SIZE);
+  if (!c->sock.buffer || !c->sock.wbuffer)
     return (NULL);
   if (__tcp_clients)
     __tcp_clients->prev = c;
@@ -46,5 +48,6 @@ void		tcpclient_delete(TcpClient *c)
     __tcp_clients = c->next;
   epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, c->sock.fd, NULL);
   rgbuf_delete(c->sock.buffer);
+  rgbuf_delete(c->sock.wbuffer);
   free(c);  
 }
