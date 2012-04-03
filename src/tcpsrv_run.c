@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Tue Apr  3 11:36:29 2012 arnaud kapp
+** Last update Tue Apr  3 11:50:49 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <netinet/in.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 #include "tcpsrv_i.h"

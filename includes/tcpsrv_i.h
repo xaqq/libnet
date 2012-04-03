@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Wed Feb 29 13:39:25 2012 arnaud kapp
+** Last update Tue Apr  3 11:51:30 2012 arnaud kapp
 */
 
 #include "tcpsrv.h"
@@ -25,3 +25,6 @@ TcpServer	*__tcp_server;
  */
 __attribute__((visibility("internal")))
 TcpClient	*__tcp_clients;
+
+__attribute__((visibility("internal")))
+int		get_epoll_fd();
