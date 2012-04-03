@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Tue Feb 28 14:48:54 2012 arnaud kapp
+** Last update Tue Apr  3 16:59:11 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -99,7 +99,7 @@ int		rgbuf_read(RingBuffer *b, unsigned char *d, int s)
   direct = direct > s ? s : direct;
   memcpy(d, b->data + b->s, direct);
   s -= direct;
-  b->s+= direct;
+  b->s += direct;
   b->s %= b->size;
   if (s)
     rgbuf_read(b, d + direct, s);
