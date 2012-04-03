@@ -5,9 +5,10 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:51:37 2012 arnaud kapp
-** Last update Tue Feb 28 15:25:21 2012 arnaud kapp
+** Last update Tue Apr  3 11:36:36 2012 arnaud kapp
 */
 
+#include <sys/epoll.h>
 #include <stdlib.h>
 #include "tcpsrv_i.h"
 #include "tcpclient.h"
@@ -43,6 +44,7 @@ void		tcpclient_delete(TcpClient *c)
     c->next->prev = c->prev;
   if (c == __tcp_clients)
     __tcp_clients = c->next;
+  epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, c->sock.fd, NULL);
   rgbuf_delete(c->sock.buffer);
   free(c);  
 }

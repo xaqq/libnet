@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Wed Mar 28 16:13:36 2012 arnaud kapp
+** Last update Tue Apr  3 11:36:29 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -80,7 +80,6 @@ static void		incomming_data(TcpClient *c)
 static void		disconnection(TcpClient *c)
 {
   printf("Disconnection of one client...\n");
-  epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, c->sock.fd, NULL);
   tcpclient_delete(c);
 }
 
