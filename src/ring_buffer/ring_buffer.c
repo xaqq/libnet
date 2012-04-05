@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Thu Apr  5 13:00:52 2012 arnaud kapp
+** Last update Thu Apr  5 15:05:39 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -35,6 +35,7 @@ static int	resize(RingBuffer *b)
   b->e = r;
   b->data = ptr;
   b->size += RGBUF_SIZE;
+  free(tmp);
   return (1);
 }
 
