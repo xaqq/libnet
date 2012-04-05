@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Thu Apr  5 15:05:39 2012 arnaud kapp
+** Last update Thu Apr  5 15:09:25 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -20,6 +20,7 @@ static int	resize(RingBuffer *b)
   unsigned char	*tmp;
   int		r;
 
+  tmp = NULL;
   if ((r = rgbuf_r_available(b)))
     {
       tmp = malloc(r);
