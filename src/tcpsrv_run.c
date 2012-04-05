@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Tue Apr  3 16:42:15 2012 arnaud kapp
+** Last update Thu Apr  5 11:08:50 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -35,7 +35,7 @@ static int		check_new_connection()
 		    &sclient_l, SOCK_NONBLOCK)) != -1)
     {
       c = tcpclient_create(fd);
-      e.events = EPOLLIN | EPOLLRDHUP | EPOLLOUT;
+      e.events = EPOLLIN | EPOLLRDHUP;
       e.data.fd = c->sock.fd;
       epoll_ctl(get_epoll_fd(), EPOLL_CTL_ADD, c->sock.fd, &e);
       __cb_new_connection(&(c->data));

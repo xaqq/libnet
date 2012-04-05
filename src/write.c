@@ -5,28 +5,47 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Tue Apr  3 18:45:30 2012 arnaud kapp
+** Last update Thu Apr  5 11:08:57 2012 arnaud kapp
 */
 
 #include	<stdio.h>
 #include	<unistd.h>
+#include	<sys/epoll.h>
+#include	<sys/socket.h>
+#include	<sys/types.h>
+#include	<sys/ioctl.h>
+#include	"tcpsrv_i.h"
 #include	"tcpclient.h"
 
-void		write_to_sock(t_tcp_client *c)
+void			write_to_sock(t_tcp_client *c)
 {
-  unsigned char	buffer[512];
-  int		r;
+  unsigned char		buffer[512];
+  int			r;
+  struct epoll_event	e;
 
   r = rgbuf_r_available(c->sock.wbuffer);
   r = r > 512 ? 512 : r;
-  rgbuf_read(c->sock.wbuffer, buffer, r);
   if (r)
-    write(c->sock.fd, (char *)buffer, r);
+    {
+      rgbuf_read(c->sock.wbuffer, buffer, r);
+      write(c->sock.fd, (char *)buffer, r);
+    }
+  else
+    {
+      e.events = EPOLLIN | EPOLLRDHUP;
+      e.data.fd = c->sock.fd;
+      epoll_ctl(get_epoll_fd(), EPOLL_CTL_MOD, c->sock.fd, &e);
+    }
 }
 
-void		swrite(t_tcp_client *c,
-		       unsigned char *data,
-		       int size)
+void			swrite(t_tcp_client *c,
+			       unsigned char *data,
+			       int size)
 {
+  struct epoll_event	e;
+
+  e.events = EPOLLIN | EPOLLRDHUP | EPOLLOUT;
+  e.data.fd = c->sock.fd;
   rgbuf_write(c->sock.wbuffer, data, size);
+  epoll_ctl(get_epoll_fd(), EPOLL_CTL_MOD, c->sock.fd, &e);
 }
