@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Thu Apr  5 11:08:50 2012 arnaud kapp
+** Last update Thu Apr  5 12:27:27 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -17,6 +17,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <string.h>
+#include <strings.h>
 #include <stdio.h>
 #include "tcpsrv_i.h"
 #include "internal.h"
@@ -30,6 +31,7 @@ static int		check_new_connection()
   int			fd;
   struct epoll_event	e;
 
+  bzero(&e, sizeof(struct epoll_event));
   sclient_l = sizeof(struct sockaddr_in);
   if ((fd = accept4(s->sock.fd, (struct sockaddr *)(&sclient),
 		    &sclient_l, SOCK_NONBLOCK)) != -1)

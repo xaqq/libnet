@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 ** 
 ** Started on  Wed Feb 22 16:43:06 2012 arnaud kapp
-** Last update Tue Feb 28 13:57:03 2012 arnaud kapp
+** Last update Thu Apr  5 12:28:25 2012 arnaud kapp
 */
 
 #include <stdlib.h>
@@ -22,9 +22,9 @@ static int		epoll_init(int sock)
   struct epoll_event	ev;
   int			efd;
 
+  bzero(&ev, sizeof(struct epoll_event));
   ev.events = EPOLLIN;
   ev.data.fd = get_epoll_fd();
-  
   if ((efd = epoll_create(10)) == -1)
     {
       perror("Epoll");
