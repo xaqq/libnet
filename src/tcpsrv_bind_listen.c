@@ -1,11 +1,11 @@
 /*
 ** tcpsrv_bind_listen.c for  in /home/xaqq/Documents/net
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 17:16:32 2012 arnaud kapp
-** Last update Wed Feb 29 14:05:01 2012 arnaud kapp
+** Last update Thu Apr  5 13:10:37 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -20,7 +20,7 @@ int			tcpsrv_bind(unsigned short port)
   struct sockaddr_in	sa;
   TcpServer		* const s = __tcp_server;
   const int		opt = 1;
-  
+
   memset(&sa, 0, sizeof(struct sockaddr_in));
   sa.sin_family = AF_INET;
   sa.sin_addr.s_addr = INADDR_ANY;

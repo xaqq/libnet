@@ -1,11 +1,11 @@
 /*
 ** tcpsrv_run.c for  in /home/xaqq/Documents/net
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Thu Apr  5 12:27:27 2012 arnaud kapp
+** Last update Thu Apr  5 13:10:18 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -49,7 +49,7 @@ static int		check_new_connection()
 static TcpClient	*fd_to_client(int fd)
 {
   TcpClient *c;
-  
+
   c = __tcp_clients;
   while (c)
     {
@@ -95,7 +95,7 @@ int			tcpsrv_run(int timeout)
   struct epoll_event	events[42];
   int			ne;
   int			i;
-  
+
   ne = epoll_wait(get_epoll_fd(), events, 42, timeout);
   i = 0;
   while (i < ne)

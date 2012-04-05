@@ -1,11 +1,11 @@
 /*
 ** ring_buffer.c for  in /home/xaqq/Documents/net
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Tue Apr  3 16:59:11 2012 arnaud kapp
+** Last update Thu Apr  5 13:00:52 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -19,7 +19,7 @@ static int	resize(RingBuffer *b)
   unsigned char	*ptr;
   unsigned char	*tmp;
   int		r;
-  
+
   if ((r = rgbuf_r_available(b)))
     {
       tmp = malloc(r);
@@ -41,7 +41,7 @@ static int	resize(RingBuffer *b)
 RingBuffer	*rgbuf_create(int s)
 {
   RingBuffer	*n;
-  
+
   s++;
   n = malloc(sizeof(RingBuffer));
   if (!n)
@@ -94,7 +94,7 @@ int		rgbuf_read(RingBuffer *b, unsigned char *d, int s)
 
   if (s > rgbuf_r_available(b))
     s = rgbuf_r_available(b);
-  
+
   direct = b->size - b->s;
   direct = direct > s ? s : direct;
   memcpy(d, b->data + b->s, direct);

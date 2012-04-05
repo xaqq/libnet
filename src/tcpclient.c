@@ -1,11 +1,11 @@
 /*
 ** tcpclient.c for  in /home/xaqq/Documents/net
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 17:51:37 2012 arnaud kapp
-** Last update Tue Apr  3 16:34:49 2012 arnaud kapp
+** Last update Thu Apr  5 13:10:09 2012 arnaud kapp
 */
 
 #include <sys/epoll.h>
@@ -39,7 +39,7 @@ void		tcpclient_delete(TcpClient *c)
 {
   if (__cb_free_user_data)
     __cb_free_user_data(c->data);
-  
+
   if (c->prev)
     c->prev->next = c->next;
   if (c->next)
@@ -49,5 +49,5 @@ void		tcpclient_delete(TcpClient *c)
   epoll_ctl(get_epoll_fd(), EPOLL_CTL_DEL, c->sock.fd, NULL);
   rgbuf_delete(c->sock.buffer);
   rgbuf_delete(c->sock.wbuffer);
-  free(c);  
+  free(c);
 }
