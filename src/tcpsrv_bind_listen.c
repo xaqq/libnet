@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:16:32 2012 arnaud kapp
-** Last update Thu Apr  5 13:10:37 2012 arnaud kapp
+** Last update Fri Apr  6 15:01:31 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -35,7 +35,7 @@ int			tcpsrv_bind(unsigned short port)
 
 int		tcpsrv_listen(int max)
 {
-  TcpServer	*s = __tcp_server;
+  TcpServer	*const s = __tcp_server;
 
   if (listen(s->sock.fd, max) == -1)
     return (0);
