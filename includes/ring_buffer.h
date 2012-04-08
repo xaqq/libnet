@@ -1,17 +1,17 @@
 /*
 ** ring_buffer.h for  in /home/xaqq/Documents/net
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 21:32:42 2012 arnaud kapp
-** Last update Tue Feb 28 13:11:05 2012 arnaud kapp
+** Last update Sun Apr  8 19:05:10 2012 arnaud kapp
 */
 
 #ifndef	RINGBUFFER_H
-#define RINGBUFFER_H
+# define RINGBUFFER_H
 
-#define	RGBUF_SIZE	2048
+# define	RGBUF_SIZE	2048
 
 typedef struct s_ring_buff
 {
@@ -21,15 +21,15 @@ typedef struct s_ring_buff
   int		e; //end
 }		t_ring_buff;
 
-typedef t_ring_buff RingBuffer;
+typedef t_ring_buff t_ring_buff;
 
-RingBuffer	*rgbuf_create(int s);
-void		rgbuf_delete(RingBuffer *b);
-int		rgbuf_is_empty(RingBuffer *b);
-int		rgbuf_is_full(RingBuffer *b);
-int		rgbuf_write(RingBuffer *b, unsigned char *d, int s);
-int		rgbuf_read(RingBuffer *b, unsigned char *d, int s);
-int		rgbuf_r_available(RingBuffer *b);
-int		rgbuf_w_available(RingBuffer *b);
+t_ring_buff	*rgbuf_create(int s);
+void		rgbuf_delete(t_ring_buff *b);
+int		rgbuf_is_empty(t_ring_buff *b);
+int		rgbuf_is_full(t_ring_buff *b);
+int		rgbuf_write(t_ring_buff *b, unsigned char *d, int s);
+int		rgbuf_read(t_ring_buff *b, unsigned char *d, int s);
+int		rgbuf_r_available(t_ring_buff *b);
+int		rgbuf_w_available(t_ring_buff *b);
 
-#endif
+#endif /* !RINGBUFFER_H */

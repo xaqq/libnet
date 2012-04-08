@@ -18,7 +18,7 @@
 int			tcpsrv_bind(unsigned short port)
 {
   struct sockaddr_in	sa;
-  TcpServer		* const s = __tcp_server;
+  t_tcp_server		* const s = __tcp_server;
   const int		opt = 1;
 
   memset(&sa, 0, sizeof(struct sockaddr_in));
@@ -35,7 +35,7 @@ int			tcpsrv_bind(unsigned short port)
 
 int		tcpsrv_listen(int max)
 {
-  TcpServer	*const s = __tcp_server;
+  t_tcp_server	*const s = __tcp_server;
 
   if (listen(s->sock.fd, max) == -1)
     return (0);

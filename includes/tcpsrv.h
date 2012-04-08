@@ -1,26 +1,26 @@
 /*
 ** tcpsrv.h for  in /home/xaqq/Documents/net
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 16:43:52 2012 arnaud kapp
-** Last update Tue Apr  3 15:58:02 2012 arnaud kapp
+** Last update Sun Apr  8 19:03:28 2012 arnaud kapp
 */
 
 #ifndef	TCPSRV_H
-#define TCPSRV_H
+# define TCPSRV_H
 
-#include "tcpsock.h"
-#include "tcpclient.h"
+# include "tcpsock.h"
+# include "tcpclient.h"
 
 typedef struct s_tcp_server
 {
   int		status;
-  TcpSocket	sock;
+  t_tcp_socket	sock;
 }	       t_tcp_server;
 
-typedef t_tcp_server TcpServer;
+typedef t_tcp_server t_tcp_server;
 
 /**
  * Callback function for new incomming connection
@@ -33,7 +33,7 @@ int	(*__cb_new_connection)(void **user_data);
  * Callback function. Called when new data are avalaible
  * for reading.
  */
-int	(*__cb_incomming_data)(TcpClient *c);
+int	(*__cb_incomming_data)(t_tcp_client *c);
 
 /**
  * Call when deleting a client
@@ -46,4 +46,4 @@ int	tcpsrv_listen(int max);
 int	tcpsrv_bind(unsigned short port);
 int	tcpsrv_run(int timeout);
 
-#endif
+#endif /* !TCPSRV_I_H */

@@ -14,11 +14,11 @@
 #include "tcpclient.h"
 
 __attribute__((visibility("internal")))
-TcpClient	*tcpclient_create(int fd)
+t_tcp_client	*tcpclient_create(int fd)
 {
-  TcpClient	*c;
+  t_tcp_client	*c;
 
-  c = malloc(sizeof(TcpClient));
+  c = malloc(sizeof(t_tcp_client));
   if (!c)
     return (NULL);
   c->sock.fd = fd;
@@ -35,7 +35,7 @@ TcpClient	*tcpclient_create(int fd)
   return (c);
 }
 
-void		tcpclient_delete(TcpClient *c)
+void		tcpclient_delete(t_tcp_client *c)
 {
   if (__cb_free_user_data)
     __cb_free_user_data(c->data);

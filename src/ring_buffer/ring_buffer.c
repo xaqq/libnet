@@ -14,7 +14,7 @@
 #include	<stdio.h>
 #include	"ring_buffer.h"
 
-static int	resize(RingBuffer *b)
+static int	resize(t_ring_buff *b)
 {
   unsigned char	*ptr;
   unsigned char	*tmp;
@@ -40,12 +40,12 @@ static int	resize(RingBuffer *b)
   return (1);
 }
 
-RingBuffer	*rgbuf_create(int s)
+t_ring_buff	*rgbuf_create(int s)
 {
-  RingBuffer	*n;
+  t_ring_buff	*n;
 
   s++;
-  n = malloc(sizeof(RingBuffer));
+  n = malloc(sizeof(t_ring_buff));
   if (!n)
     return (NULL);
   n->size = s;
@@ -61,14 +61,14 @@ RingBuffer	*rgbuf_create(int s)
   return (n);
 }
 
-void		rgbuf_delete(RingBuffer *b)
+void		rgbuf_delete(t_ring_buff *b)
 {
   if (b)
     free(b->data);
   free(b);
 }
 
-int		rgbuf_write(RingBuffer *b, unsigned char *d, int s)
+int		rgbuf_write(t_ring_buff *b, unsigned char *d, int s)
 {
   int		direct;
 
@@ -90,7 +90,7 @@ int		rgbuf_write(RingBuffer *b, unsigned char *d, int s)
   return (0);
 }
 
-int		rgbuf_read(RingBuffer *b, unsigned char *d, int s)
+int		rgbuf_read(t_ring_buff *b, unsigned char *d, int s)
 {
   int		direct;
 

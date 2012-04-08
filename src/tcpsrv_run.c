@@ -26,8 +26,8 @@ static int		check_new_connection()
 {
   struct sockaddr_in	sclient;
   socklen_t		sclient_l;
-  TcpServer		*const s = __tcp_server;
-  TcpClient		*c;
+  t_tcp_server		*const s = __tcp_server;
+  t_tcp_client		*c;
   int			fd;
   struct epoll_event	e;
 
@@ -46,9 +46,9 @@ static int		check_new_connection()
   return (0);
 }
 
-static TcpClient	*fd_to_client(int fd)
+static t_tcp_client	*fd_to_client(int fd)
 {
-  TcpClient *c;
+  t_tcp_client *c;
 
   c = __tcp_clients;
   while (c)
@@ -62,7 +62,7 @@ static TcpClient	*fd_to_client(int fd)
   return (NULL);
 }
 
-static void		incomming_data(TcpClient *c)
+static void		incomming_data(t_tcp_client *c)
 {
   int			n;
   unsigned char		buffer[1024];
@@ -80,7 +80,7 @@ static void		incomming_data(TcpClient *c)
   __cb_incomming_data(c);
 }
 
-static int		disconnection(TcpClient *c)
+static int		disconnection(t_tcp_client *c)
 {
   printf("Disconnection of one client...\n");
   tcpclient_delete(c);

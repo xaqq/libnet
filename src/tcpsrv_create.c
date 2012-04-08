@@ -39,9 +39,9 @@ static int		epoll_init(int sock)
 
 int		tcpsrv_create()
 {
-  TcpServer	*new;
+  t_tcp_server	*new;
 
-  new = malloc(sizeof(TcpServer));
+  new = malloc(sizeof(t_tcp_server));
   if (!new)
     return (0);
   new->sock.fd = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);

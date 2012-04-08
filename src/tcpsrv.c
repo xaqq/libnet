@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "tcpsrv.h"
 
-int		(*__cb_incomming_data)(TcpClient *c)	 = NULL;
+int		(*__cb_incomming_data)(t_tcp_client *c)	 = NULL;
 int		(*__cb_new_connection)(void **user_data) = NULL;
-TcpServer	*__tcp_server = NULL;
-TcpClient	*__tcp_clients = NULL;
+t_tcp_server	*__tcp_server = NULL;
+t_tcp_client	*__tcp_clients = NULL;

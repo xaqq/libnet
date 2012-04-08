@@ -10,21 +10,21 @@
 
 #include	"ring_buffer.h"
 
-int		rgbuf_is_empty(RingBuffer *b)
+int		rgbuf_is_empty(t_ring_buff *b)
 {
   if (b->s == b->e)
     return (1);
   return (0);
 }
 
-int		rgbuf_is_full(RingBuffer *b)
+int		rgbuf_is_full(t_ring_buff *b)
 {
   if ((b->e + 1) % b->size == b->s)
     return (1);
   return (0);
 }
 
-int		rgbuf_r_available(RingBuffer *b)
+int		rgbuf_r_available(t_ring_buff *b)
 {
   if (b->s == b->e)
     return (0);
@@ -35,7 +35,7 @@ int		rgbuf_r_available(RingBuffer *b)
   return (0);
 }
 
-int		rgbuf_w_available(RingBuffer *b)
+int		rgbuf_w_available(t_ring_buff *b)
 {
   return (b->size - rgbuf_r_available(b) - 1);
 }
