@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Thu Apr  5 13:10:18 2012 arnaud kapp
+** Last update Sun Apr  8 19:07:55 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -48,7 +48,7 @@ static int		check_new_connection()
 
 static t_tcp_client	*fd_to_client(int fd)
 {
-  t_tcp_client *c;
+  t_tcp_client		*c;
 
   c = __tcp_clients;
   while (c)
