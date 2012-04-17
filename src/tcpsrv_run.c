@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Tue Apr 17 21:24:56 2012 arnaud kapp
+** Last update Tue Apr 17 21:32:45 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -113,7 +113,7 @@ static void		fill_sets()
     }
 }
 
-int			tcpsrv_run(int timeout)
+int			tcpsrv_run(__attribute__((unused))int timeout)
 {
   t_select_sets		*s;
 
