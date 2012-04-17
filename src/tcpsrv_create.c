@@ -1,11 +1,11 @@
 /*
 ** tcpsrv_create.c for  in /home/xaqq/Documents/net/src
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Wed Feb 22 16:43:06 2012 arnaud kapp
-** Last update Thu Apr  5 12:28:25 2012 arnaud kapp
+** Last update Tue Apr 17 15:42:23 2012 arnaud kapp
 */
 
 #include <stdlib.h>
@@ -50,7 +50,7 @@ int		tcpsrv_create()
       free(new);
       return (0);
     }
-  set_flag(&(new->status), TCPSRV_BOUND, 1);
+  set_flag(&(new->status), TCPSRV_BOUND, 0);
   set_flag(&(new->status), TCPSRV_LISTENING, 0);
   __tcp_server = new;
 
