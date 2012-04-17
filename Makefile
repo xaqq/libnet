@@ -1,11 +1,11 @@
 ##
 ## Makefile for  in /home/xaqq/Documents/network
-## 
+##
 ## Made by arnaud kapp
 ## Login   <kapp_a@epitech.net>
-## 
+##
 ## Started on  Tue Feb 14 18:18:42 2012 arnaud kapp
-## Last update Tue Apr  3 16:23:53 2012 arnaud kapp
+## Last update Tue Apr 17 17:26:09 2012 arnaud kapp
 ##
 
 NAME=		libmynet.so
@@ -20,7 +20,8 @@ SRC=		src/tcpsrv.c \
 		src/ring_buffer/ring_buffer_st.c \
 		src/flags.c \
 		src/epoll_manager.c \
-		src/write.c
+		src/write.c \
+		src/ring_buffer/ring_buffer_read.c
 
 OBJ=		$(SRC:.c=.o)
 
