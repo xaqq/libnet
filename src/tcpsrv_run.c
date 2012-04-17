@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Sun Apr  8 19:07:55 2012 arnaud kapp
+** Last update Tue Apr 17 15:51:50 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -29,7 +29,6 @@ static int		check_new_connection()
   t_tcp_server		*const s = __tcp_server;
   t_tcp_client		*c;
   int			fd;
-  struct epoll_event	e;
 
   bzero(&e, sizeof(struct epoll_event));
   sclient_l = sizeof(struct sockaddr_in);
@@ -37,9 +36,6 @@ static int		check_new_connection()
 		    &sclient_l, SOCK_NONBLOCK)) != -1)
     {
       c = tcpclient_create(fd);
-      e.events = EPOLLIN | EPOLLRDHUP;
-      e.data.fd = c->sock.fd;
-      epoll_ctl(get_epoll_fd(), EPOLL_CTL_ADD, c->sock.fd, &e);
       __cb_new_connection(&(c->data));
       return (1);
     }

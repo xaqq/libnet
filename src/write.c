@@ -1,11 +1,11 @@
 /*
 ** write.c for  in /home/xaqq/Documents/myftp
-** 
+**
 ** Made by arnaud kapp
 ** Login   <kapp_a@epitech.net>
-** 
+**
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Thu Apr  5 12:27:35 2012 arnaud kapp
+** Last update Tue Apr 17 17:16:23 2012 arnaud kapp
 */
 
 #include	<stdio.h>
@@ -47,8 +47,7 @@ void			swrite(t_tcp_client *c,
   struct epoll_event	e;
 
   bzero(&e, sizeof(struct epoll_event));
-  e.events = EPOLLIN | EPOLLRDHUP | EPOLLOUT;
   e.data.fd = c->sock.fd;
   rgbuf_write(c->sock.wbuffer, data, size);
-  epoll_ctl(get_epoll_fd(), EPOLL_CTL_MOD, c->sock.fd, &e);
+  add
 }
