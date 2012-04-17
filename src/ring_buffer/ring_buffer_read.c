@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:07 2012 arnaud kapp
-** Last update Tue Apr 17 17:26:40 2012 arnaud kapp
+** Last update Tue Apr 17 17:42:25 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -35,4 +35,12 @@ int		rgbuf_read(t_ring_buff *b, unsigned char *d, int s)
 {
   b->last_start = b->s;
   return (read_i(b, d, s));
+}
+
+int		rgbuf_read_rb(t_ring_buff *b)
+{
+  if (b->s == b->last_start)
+    return (0);
+  b->s = b->last_start;
+  return (1);
 }
