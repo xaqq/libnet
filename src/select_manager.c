@@ -5,17 +5,21 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr 17 15:30:32 2012 arnaud kapp
-** Last update Tue Apr 17 15:58:09 2012 arnaud kapp
+** Last update Tue Apr 17 21:01:22 2012 arnaud kapp
 */
 
+#include <stdlib.h>
 #include "tcpsrv_i.h"
 
-t_select_sets	*get_select_sets()
+t_select_sets		*get_select_sets()
 {
-  t_select_sets	*s = NULL;
+  static t_select_sets	*s = NULL;
 
   if (!s)
-    s = malloc(sizeof(t_select_sets));
+    {
+      s = malloc(sizeof(t_select_sets));
+      select_sets_reset();
+    }
   return (s);
 }
 
@@ -40,4 +44,26 @@ void		add_fd_to_wset(int fd)
   FD_SET(fd, &(s->write_set));
   if (fd + 1 > s->maxfd)
     s->maxfd = fd + 1;
+}
+
+void			add_fd_to_rset(int fd)
+{
+  t_select_sets		*s;
+
+  s = get_select_sets();
+  if (!s)
+    return;
+  FD_SET(fd, &(s->read_set));
+  if (fd + 1 > s->maxfd)
+    s->maxfd = fd + 1;
+}
+
+void			remove_fd_from_wset(int fd)
+{
+  t_select_sets		*s;
+
+  s = get_select_sets();
+  if (!s)
+    return;
+  FD_CLR(fd, &s->write_set);
 }

@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Tue Apr 17 15:57:22 2012 arnaud kapp
+** Last update Tue Apr 17 21:13:40 2012 arnaud kapp
 */
 
 #ifndef		TCPSRV_I_H
@@ -23,7 +23,7 @@ typedef struct	s_select_sets
   fd_set	write_set;
   fd_set	x_set;
   int		maxfd;
-}		t_select_sets
+}		t_select_sets;
 
 /*
 ** Global pointer on server instance
@@ -46,4 +46,9 @@ void		select_sets_reset();
 __attribute__((visibility("internal")))
 void		add_fd_to_wset(int fd);
 
+__attribute__((visibility("internal")))
+void		add_fd_to_rset(int fd);
+
+__attribute__((visibility("internal")))
+void		remove_fd_from_wset(int fd);
 #endif /* !TCPSRV_I_H */

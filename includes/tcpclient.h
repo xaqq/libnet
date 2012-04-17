@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 16:56:05 2012 arnaud kapp
-** Last update Sun Apr  8 19:04:45 2012 arnaud kapp
+** Last update Tue Apr 17 21:12:49 2012 arnaud kapp
 */
 
 #ifndef	TCPCLIENT_H
@@ -28,7 +28,7 @@ t_tcp_client	*tcpclient_create(int fd);
 void		tcpclient_delete(t_tcp_client *c);
 
 __attribute__((visibility("internal")))
-void		write_to_sock(t_tcp_client *c);
+int		write_to_sock(t_tcp_client *c);
 void		swrite(t_tcp_client *c,
 		       unsigned char *data,
 		       int size);

@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 16:43:06 2012 arnaud kapp
-** Last update Tue Apr 17 17:31:04 2012 arnaud kapp
+** Last update Tue Apr 17 20:57:21 2012 arnaud kapp
 */
 
 #include <stdlib.h>
@@ -32,6 +32,7 @@ int		tcpsrv_create()
     }
   set_flag(&(new->status), TCPSRV_BOUND, 0);
   set_flag(&(new->status), TCPSRV_LISTENING, 0);
+  add_fd_to_rset(new->sock.fd);
   __tcp_server = new;
   return (1);
 }

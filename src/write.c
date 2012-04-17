@@ -5,9 +5,10 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Tue Apr 17 17:37:48 2012 arnaud kapp
+** Last update Tue Apr 17 21:13:06 2012 arnaud kapp
 */
 
+#include	<errno.h>
 #include	<stdio.h>
 #include	<unistd.h>
 #include	<sys/epoll.h>
@@ -18,7 +19,7 @@
 #include	"tcpsrv_i.h"
 #include	"tcpclient.h"
 
-void			write_to_sock(t_tcp_client *c)
+int			write_to_sock(t_tcp_client *c)
 {
   unsigned char		buffer[512];
   int			r;
@@ -29,15 +30,17 @@ void			write_to_sock(t_tcp_client *c)
     {
       rgbuf_read(c->sock.wbuffer, buffer, r);
       if (write(c->sock.fd, (char *)buffer, r) == -1)
-	;
+	{
+	  if (errno != EWOULDBLOCK &&
+	      errno != EAGAIN)
+	    return (-1);
+	  rgbuf_read_rb(c->sock.wbuffer);
+	}
+      add_fd_to_wset(c->sock.fd);
     }
   else
-    {
-      bzero(&e, sizeof(struct epoll_event));
-      e.events = EPOLLIN | EPOLLRDHUP;
-      e.data.fd = c->sock.fd;
-      epoll_ctl(get_epoll_fd(), EPOLL_CTL_MOD, c->sock.fd, &e);
-    }
+    remove_fd_from_wset(c->sock.fd);
+  return (0);
 }
 
 void			swrite(t_tcp_client *c,
