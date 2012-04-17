@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Tue Apr 17 17:16:23 2012 arnaud kapp
+** Last update Tue Apr 17 17:37:48 2012 arnaud kapp
 */
 
 #include	<stdio.h>
@@ -22,14 +22,14 @@ void			write_to_sock(t_tcp_client *c)
 {
   unsigned char		buffer[512];
   int			r;
-  struct epoll_event	e;
 
   r = rgbuf_r_available(c->sock.wbuffer);
   r = r > 512 ? 512 : r;
   if (r)
     {
       rgbuf_read(c->sock.wbuffer, buffer, r);
-      write(c->sock.fd, (char *)buffer, r);
+      if (write(c->sock.fd, (char *)buffer, r) == -1)
+	;
     }
   else
     {
@@ -44,10 +44,6 @@ void			swrite(t_tcp_client *c,
 			       unsigned char *data,
 			       int size)
 {
-  struct epoll_event	e;
-
-  bzero(&e, sizeof(struct epoll_event));
-  e.data.fd = c->sock.fd;
   rgbuf_write(c->sock.wbuffer, data, size);
-  add
+  add_fd_to_wset(c->sock.fd);
 }
