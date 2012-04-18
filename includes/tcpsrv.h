@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 16:43:52 2012 arnaud kapp
-** Last update Sun Apr  8 19:03:28 2012 arnaud kapp
+** Last update Wed Apr 18 17:39:17 2012 arnaud kapp
 */
 
 #ifndef	TCPSRV_H
@@ -40,10 +40,11 @@ int	(*__cb_incomming_data)(t_tcp_client *c);
  */
 int	(*__cb_free_user_data)(void *data);
 
-void	tcpsrv_delete(void);
-int	tcpsrv_create(void);
-int	tcpsrv_listen(int max);
-int	tcpsrv_bind(unsigned short port);
-int	tcpsrv_run(int timeout);
+void		tcpsrv_delete(void);
+int		tcpsrv_create(void);
+int		tcpsrv_listen(int max);
+int		tcpsrv_bind(unsigned short port);
+int		tcpsrv_run(int timeout);
+t_tcp_client	*get_all_clients();
 
 #endif /* !TCPSRV_I_H */
