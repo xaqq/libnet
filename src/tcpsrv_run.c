@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Sun Apr  8 19:07:55 2012 arnaud kapp
+** Last update Wed Apr 18 21:17:04 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -62,22 +62,24 @@ static t_tcp_client	*fd_to_client(int fd)
   return (NULL);
 }
 
-static void		incomming_data(t_tcp_client *c)
+static int		incomming_data(t_tcp_client *c)
 {
   int			n;
   unsigned char		buffer[1024];
 
   if (!c)
-    return;
-  while (1)
+    return (1);
+  bzero(buffer, sizeof(buffer));
+  n = read(c->sock.fd, buffer, sizeof(buffer));
+  if (!n || n == -1)
+    return (1);
+  if (rgbuf_write(c->sock.buffer, buffer, n) == -1)
     {
-      bzero(buffer, sizeof(buffer));
-      n = read(c->sock.fd, buffer, sizeof(buffer));
-      if (!n || n == -1)
-	break;
-      rgbuf_write(c->sock.buffer, buffer, n);
+      tcpclient_delete(c);
+      return (-1);
     }
   __cb_incomming_data(c);
+  return (1);
 }
 
 static int		disconnection(t_tcp_client *c)
@@ -107,7 +109,8 @@ int			tcpsrv_run(int timeout)
 	  if (events[i].events & EPOLLRDHUP)
 	    return (disconnection(fd_to_client(events[i].data.fd)));
 	  if (events[i].events & EPOLLIN)
-	    incomming_data(fd_to_client(events[i].data.fd));
+	    if (incomming_data(fd_to_client(events[i].data.fd)) == -1)
+	      return (1);
 	  if (events[i].events & EPOLLOUT)
 	    write_to_sock(fd_to_client(events[i].data.fd));
 	}
