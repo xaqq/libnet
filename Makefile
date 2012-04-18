@@ -5,7 +5,7 @@
 ## Login   <kapp_a@epitech.net>
 ##
 ## Started on  Tue Feb 14 18:18:42 2012 arnaud kapp
-## Last update Tue Apr 17 17:32:32 2012 arnaud kapp
+## Last update Wed Apr 18 19:36:45 2012 arnaud kapp
 ##
 
 NAME=		libmynet.so
@@ -25,10 +25,10 @@ SRC=		src/tcpsrv.c \
 
 OBJ=		$(SRC:.c=.o)
 
-CFLAGS+=	-g -W -Wall -I ./includes -fPIC
+CFLAGS+=	-O3 -W -Wall -I ./includes -fPIC
 
 $(NAME):	$(OBJ)
-		gcc -o $(NAME) $(OBJ) -shared
+		gcc -fPIC -o $(NAME) $(OBJ) -shared
 
 clean:
 		rm -f $(OBJ)

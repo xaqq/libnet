@@ -5,11 +5,11 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:00:00 2012 arnaud kapp
-** Last update Wed Apr 18 17:39:28 2012 arnaud kapp
+** Last update Wed Apr 18 19:43:56 2012 arnaud kapp
 */
 
 #include <stdlib.h>
-#include "tcpsrv.h"
+#include "tcpsrv_i.h"
 
 int		(*__cb_incomming_data)(t_tcp_client *c)	 = NULL;
 int		(*__cb_new_connection)(void **user_data) = NULL;

@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Tue Apr 17 21:13:40 2012 arnaud kapp
+** Last update Wed Apr 18 19:42:33 2012 arnaud kapp
 */
 
 #ifndef		TCPSRV_I_H
@@ -29,7 +29,7 @@ typedef struct	s_select_sets
 ** Global pointer on server instance
 */
 __attribute__((visibility("internal")))
-t_tcp_server	*__tcp_server;
+extern t_tcp_server	*__tcp_server;
 
 /*
 ** Global pointer on clients' linked list.
