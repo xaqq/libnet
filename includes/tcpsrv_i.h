@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Sun Apr  8 19:03:39 2012 arnaud kapp
+** Last update Wed Apr 18 19:46:29 2012 arnaud kapp
 */
 
 #ifndef		TCPSRV_I_H
@@ -20,7 +20,7 @@
  * Global pointer on server instance
  */
 __attribute__((visibility("internal")))
-t_tcp_server	*__tcp_server;
+extern t_tcp_server	*__tcp_server;
 
 /**
  * Global pointer on clients' linked list.
