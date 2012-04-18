@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Wed Apr 18 16:16:50 2012 arnaud kapp
+** Last update Wed Apr 18 18:05:21 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -55,7 +55,7 @@ static int		incomming_data(t_tcp_client *c)
   unsigned char		buffer[1024];
   int			omg;
 
-  omg = 1;
+  omg = 42;
   while (omg)
     {
       bzero(buffer, sizeof(buffer));
@@ -67,6 +67,7 @@ static int		incomming_data(t_tcp_client *c)
 	omg = 0;
       if (omg)
 	rgbuf_write(c->sock.buffer, buffer, n);
+      --omg;
     }
   return (__cb_incomming_data(c));
 }
