@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Tue Apr 17 17:22:21 2012 arnaud kapp
+** Last update Wed Apr 18 20:53:12 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -20,6 +20,8 @@ static int	resize(t_ring_buff *b)
   unsigned char	*tmp;
   int		r;
 
+  if (b->max_size + RGBUF_SIZE > RGBUF_MAX_SIZE)
+    return (0);
   tmp = NULL;
   if ((r = rgbuf_r_available(b)))
     {
@@ -28,8 +30,7 @@ static int	resize(t_ring_buff *b)
 	return (0);
       rgbuf_read(b, tmp, r);
     }
-  ptr = realloc(b->data, b->size + RGBUF_SIZE);
-  if (!ptr)
+  if ((ptr = realloc(b->data, b->size + RGBUF_SIZE)) == 0)
     return (0);
   memcpy(ptr, tmp, r);
   b->s = 0;
@@ -58,6 +59,7 @@ t_ring_buff	*rgbuf_create(int s)
     }
   n->s = 0;
   n->e = 0;
+  n->max_size = RGBUF_MAX_SIZE;
   bzero(n->data, s);
   return (n);
 }

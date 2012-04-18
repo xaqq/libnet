@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Wed Apr 18 18:24:17 2012 arnaud kapp
+** Last update Wed Apr 18 20:54:12 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -65,11 +65,9 @@ static int		incomming_data(t_tcp_client *c)
 	return (-1);
       if (n == 0 || n == -1)
 	omg = 0;
-      if (omg)
-	{
-	  rgbuf_write(c->sock.buffer, buffer, n);
-	  --omg;
-	}
+      if (omg && --omg)
+	if (rgbuf_write(c->sock.buffer, buffer, n) == -1)
+	  return (-1);
     }
   return (__cb_incomming_data(c));
 }

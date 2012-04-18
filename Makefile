@@ -5,7 +5,7 @@
 ## Login   <kapp_a@epitech.net>
 ##
 ## Started on  Tue Feb 14 18:18:42 2012 arnaud kapp
-## Last update Wed Apr 18 19:36:45 2012 arnaud kapp
+## Last update Wed Apr 18 20:45:34 2012 arnaud kapp
 ##
 
 NAME=		libmynet.so
