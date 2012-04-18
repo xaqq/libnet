@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 16:43:52 2012 arnaud kapp
-** Last update Sun Apr  8 19:03:28 2012 arnaud kapp
+** Last update Wed Apr 18 16:16:32 2012 arnaud kapp
 */
 
 #ifndef	TCPSRV_H
@@ -32,6 +32,8 @@ int	(*__cb_new_connection)(void **user_data);
 /**
  * Callback function. Called when new data are avalaible
  * for reading.
+ * If is doesnt return 0, then the client will be kicked
+ ** from server
  */
 int	(*__cb_incomming_data)(t_tcp_client *c);
 
