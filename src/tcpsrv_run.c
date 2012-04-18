@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Wed Apr 18 21:17:04 2012 arnaud kapp
+** Last update Wed Apr 18 21:22:48 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -21,6 +21,13 @@
 #include <stdio.h>
 #include "tcpsrv_i.h"
 #include "internal.h"
+
+static int		disconnection(t_tcp_client *c)
+{
+  printf("Disconnection of one client...\n");
+  tcpclient_delete(c);
+  return (1);
+}
 
 static int		check_new_connection()
 {
@@ -75,17 +82,10 @@ static int		incomming_data(t_tcp_client *c)
     return (1);
   if (rgbuf_write(c->sock.buffer, buffer, n) == -1)
     {
-      tcpclient_delete(c);
+      disconnection(c);
       return (-1);
     }
   __cb_incomming_data(c);
-  return (1);
-}
-
-static int		disconnection(t_tcp_client *c)
-{
-  printf("Disconnection of one client...\n");
-  tcpclient_delete(c);
   return (1);
 }
 
