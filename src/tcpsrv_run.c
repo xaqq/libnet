@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Wed Apr 18 20:54:12 2012 arnaud kapp
+** Last update Thu Apr 19 17:09:36 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -55,20 +55,15 @@ static int		incomming_data(t_tcp_client *c)
   unsigned char		buffer[1024];
   int			omg;
 
-  omg = 42;
-  while (omg)
-    {
-      bzero(buffer, sizeof(buffer));
-      n = read(c->sock.fd, buffer, sizeof(buffer));
-      if (n == 0 || (n == -1 && (errno != EWOULDBLOCK &&
-				 errno != EAGAIN)))
-	return (-1);
-      if (n == 0 || n == -1)
-	omg = 0;
-      if (omg && --omg)
-	if (rgbuf_write(c->sock.buffer, buffer, n) == -1)
-	  return (-1);
-    }
+  bzero(buffer, sizeof(buffer));
+  n = read(c->sock.fd, buffer, sizeof(buffer));
+  if (n == 0 || (n == -1 && (errno != EWOULDBLOCK &&
+			     errno != EAGAIN)))
+    return (-1);
+  if (n == 0 || n == -1)
+    return (0);
+  if (rgbuf_write(c->sock.buffer, buffer, n) == -1)
+    return (-1);
   return (__cb_incomming_data(c));
 }
 
@@ -81,9 +76,9 @@ static void		loop_on_clients()
 
   s = get_select_sets();
   c = __tcp_clients;
-  del = 0;
   while (c)
     {
+      del = 0;
       if (FD_ISSET(c->sock.fd, &s->write_set) == 1)
 	del |= write_to_sock(c);
       if (FD_ISSET(c->sock.fd, &s->read_set) == 1)
@@ -116,13 +111,16 @@ static void		fill_sets()
 int			tcpsrv_run(__attribute__((unused))int timeout)
 {
   t_select_sets		*s;
+  struct timeval	t;
 
   s = get_select_sets();
   if (!s)
     return (0);
   fill_sets();
+  t.tv_usec = 0;
+  t.tv_sec = 0;
   if (select(s->maxfd, &s->read_set,
-	     &s->write_set, &s->x_set, NULL) == -1)
+	     &s->write_set, &s->x_set, &t) == -1)
     perror("select()");
   else
     {

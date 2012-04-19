@@ -5,15 +5,15 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:32:42 2012 arnaud kapp
-** Last update Wed Apr 18 20:50:04 2012 arnaud kapp
+** Last update Thu Apr 19 15:33:09 2012 arnaud kapp
 */
 
 #ifndef	RINGBUFFER_H
 # define RINGBUFFER_H
 
-# define	RGBUF_SIZE	1048576
+# define	RGBUF_SIZE	131072
 # ifndef RGBUF_MAX_SIZE
-#  define RGBUF_MAX_SIZE	10485760
+#  define RGBUF_MAX_SIZE	282144
 # endif
 
 typedef struct	s_ring_buff
