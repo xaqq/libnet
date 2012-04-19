@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr 17 15:30:32 2012 arnaud kapp
-** Last update Thu Apr 19 16:56:06 2012 arnaud kapp
+** Last update Thu Apr 19 22:31:22 2012 arnaud kapp
 */
 
 #include <stdlib.h>
@@ -58,12 +58,20 @@ void			add_fd_to_rset(int fd)
     s->maxfd = fd + 1;
 }
 
-void			remove_fd_from_wset(int fd)
+void			fill_sets()
 {
-  t_select_sets		*s;
 
-  s = get_select_sets();
-  if (!s)
-    return;
-  FD_CLR(fd, &s->write_set);
+  t_tcp_client		*c;
+
+  select_sets_reset();
+  add_fd_to_rset(__tcp_server->sock.fd);
+  c = __tcp_clients;
+  while (c)
+    {
+      if (rgbuf_r_available(c->sock.wbuffer))
+	add_fd_to_wset(c->sock.fd);
+      add_fd_to_rset(c->sock.fd);
+      c = c->next;
+    }
 }
+

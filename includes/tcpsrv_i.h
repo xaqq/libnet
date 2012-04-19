@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Thu Apr 19 17:25:31 2012 arnaud kapp
+** Last update Thu Apr 19 22:32:00 2012 arnaud kapp
 */
 
 #ifndef		TCPSRV_I_H
@@ -50,7 +50,7 @@ __attribute__((visibility("internal")))
 void		add_fd_to_rset(int fd);
 
 __attribute__((visibility("internal")))
-void		remove_fd_from_wset(int fd);
+void		fill_sets();
 
 /*
 ** fd are added to write set if there is data in
