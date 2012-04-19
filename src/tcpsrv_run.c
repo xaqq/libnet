@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Thu Apr 19 17:12:54 2012 arnaud kapp
+** Last update Thu Apr 19 17:13:28 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -53,7 +53,6 @@ static int		incomming_data(t_tcp_client *c)
 {
   int			n;
   unsigned char		buffer[1024];
-  int			omg;
 
   bzero(buffer, sizeof(buffer));
   n = read(c->sock.fd, buffer, sizeof(buffer));
