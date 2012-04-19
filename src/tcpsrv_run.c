@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Thu Apr 19 17:13:28 2012 arnaud kapp
+** Last update Thu Apr 19 17:39:22 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -101,7 +101,8 @@ static void		fill_sets()
   c = __tcp_clients;
   while (c)
     {
-      add_fd_to_wset(c->sock.fd);
+      if (rgbuf_r_available(c->sock.wbuffer))
+	add_fd_to_wset(c->sock.fd);
       add_fd_to_rset(c->sock.fd);
       c = c->next;
     }

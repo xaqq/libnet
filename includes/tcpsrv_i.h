@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Wed Apr 18 19:42:33 2012 arnaud kapp
+** Last update Thu Apr 19 17:25:31 2012 arnaud kapp
 */
 
 #ifndef		TCPSRV_I_H
@@ -51,4 +51,9 @@ void		add_fd_to_rset(int fd);
 
 __attribute__((visibility("internal")))
 void		remove_fd_from_wset(int fd);
+
+/*
+** fd are added to write set if there is data in
+** socket's write buffer
+*/
 #endif /* !TCPSRV_I_H */

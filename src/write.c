@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Tue Apr 17 21:13:06 2012 arnaud kapp
+** Last update Thu Apr 19 17:24:24 2012 arnaud kapp
 */
 
 #include	<errno.h>
@@ -36,10 +36,7 @@ int			write_to_sock(t_tcp_client *c)
 	    return (-1);
 	  rgbuf_read_rb(c->sock.wbuffer);
 	}
-      add_fd_to_wset(c->sock.fd);
     }
-  else
-    remove_fd_from_wset(c->sock.fd);
   return (0);
 }
 
@@ -48,5 +45,4 @@ void			swrite(t_tcp_client *c,
 			       int size)
 {
   rgbuf_write(c->sock.wbuffer, data, size);
-  add_fd_to_wset(c->sock.fd);
 }
