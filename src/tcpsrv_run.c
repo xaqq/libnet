@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Thu Apr 19 17:09:36 2012 arnaud kapp
+** Last update Thu Apr 19 17:12:54 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -108,7 +108,7 @@ static void		fill_sets()
     }
 }
 
-int			tcpsrv_run(__attribute__((unused))int timeout)
+int			tcpsrv_run(int timeout)
 {
   t_select_sets		*s;
   struct timeval	t;
@@ -117,7 +117,7 @@ int			tcpsrv_run(__attribute__((unused))int timeout)
   if (!s)
     return (0);
   fill_sets();
-  t.tv_usec = 0;
+  t.tv_usec = timeout * 1000;
   t.tv_sec = 0;
   if (select(s->maxfd, &s->read_set,
 	     &s->write_set, &s->x_set, &t) == -1)
