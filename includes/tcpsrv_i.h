@@ -5,11 +5,11 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Wed Apr 18 19:46:29 2012 arnaud kapp
+** Last update Sun Apr 22 15:08:47 2012 arnaud kapp
 */
 
-#ifndef		TCPSRV_I_H
-# define	TCPSRV_I_H
+#ifndef		TCPSRV_I_H_
+# define	TCPSRV_I_H_
 
 # include "tcpsrv.h"
 
