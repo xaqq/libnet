@@ -5,11 +5,11 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:21:22 2012 arnaud kapp
-** Last update Thu Apr 19 22:32:00 2012 arnaud kapp
+** Last update Sun Apr 22 15:02:56 2012 arnaud kapp
 */
 
-#ifndef		TCPSRV_I_H
-# define	TCPSRV_I_H
+#ifndef		TCPSRV_I_H_
+# define	TCPSRV_I_H_
 
 # include "tcpsrv.h"
 # include <sys/select.h>
@@ -56,4 +56,4 @@ void		fill_sets();
 ** fd are added to write set if there is data in
 ** socket's write buffer
 */
-#endif /* !TCPSRV_I_H */
+#endif /* !TCPSRV_I_H_ */
