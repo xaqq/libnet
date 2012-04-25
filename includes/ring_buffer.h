@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:32:42 2012 arnaud kapp
-** Last update Thu Apr 19 15:33:09 2012 arnaud kapp
+** Last update Wed Apr 25 15:00:09 2012 arnaud kapp
 */
 
 #ifndef	RINGBUFFER_H
@@ -25,8 +25,6 @@ typedef struct	s_ring_buff
   int		last_start;
   int		max_size;
 }		t_ring_buff;
-
-typedef t_ring_buff t_ring_buff;
 
 t_ring_buff	*rgbuf_create(int s);
 void		rgbuf_delete(t_ring_buff *b);

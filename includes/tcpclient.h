@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 16:56:05 2012 arnaud kapp
-** Last update Sun Apr 22 15:04:02 2012 arnaud kapp
+** Last update Wed Apr 25 15:00:28 2012 arnaud kapp
 */
 
 #ifndef	TCPCLIENT_H_

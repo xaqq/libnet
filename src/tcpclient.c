@@ -5,9 +5,10 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:51:37 2012 arnaud kapp
-** Last update Tue Apr 17 15:35:54 2012 arnaud kapp
+** Last update Wed Apr 25 15:01:31 2012 arnaud kapp
 */
 
+#include <unistd.h>
 #include <sys/epoll.h>
 #include <stdlib.h>
 #include "tcpsrv_i.h"
@@ -48,5 +49,6 @@ void		tcpclient_delete(t_tcp_client *c)
     __tcp_clients = c->next;
   rgbuf_delete(c->sock.buffer);
   rgbuf_delete(c->sock.wbuffer);
+  close(c->sock.fd);
   free(c);
 }

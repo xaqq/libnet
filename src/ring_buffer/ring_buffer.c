@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Wed Apr 18 20:53:12 2012 arnaud kapp
+** Last update Wed Apr 25 15:01:22 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -20,7 +20,7 @@ static int	resize(t_ring_buff *b)
   unsigned char	*tmp;
   int		r;
 
-  if (b->max_size + RGBUF_SIZE > RGBUF_MAX_SIZE)
+  if (b->size + RGBUF_SIZE > RGBUF_MAX_SIZE)
     return (0);
   tmp = NULL;
   if ((r = rgbuf_r_available(b)))
