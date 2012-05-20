@@ -5,30 +5,22 @@
 ## Login   <kapp_a@epitech.net>
 ##
 ## Started on  Tue Feb 14 18:18:42 2012 arnaud kapp
-## Last update Wed Apr 25 14:59:48 2012 arnaud kapp
+## Last update Sun May 20 04:20:55 2012 arnaud kapp
 ##
 
 NAME=		libmynet.so
 
-SRC=		src/tcpsrv.c \
-		src/tcpsrv_create.c \
-		src/tcpsrv_delete.c \
-		src/tcpsrv_bind_listen.c \
-		src/tcpsrv_run.c \
-		src/tcpclient.c \
-		src/ring_buffer/ring_buffer.c \
-		src/ring_buffer/ring_buffer_st.c \
-		src/flags.c \
-		src/select_manager.c \
-		src/write.c \
-		src/ring_buffer/ring_buffer_read.c
+SRC=		src/ATcpClient.cpp \
+		src/TcpServer.cpp \
+		src/TcpSocket.cpp \
+		src/RingBuffer.cpp
 
-OBJ=		$(SRC:.c=.o)
+OBJ=		$(SRC:.cpp=.o)
 
-CFLAGS+=	-O3 -W -Wall -I ./includes -fPIC
+CXXFLAGS+=	-O3 -W -Wall -I ./includes -fPIC
 
 $(NAME):	$(OBJ)
-		gcc -fPIC -o $(NAME) $(OBJ) -shared
+		g++ -fPIC -o $(NAME) $(OBJ) -shared
 
 clean:
 		rm -f $(OBJ)
