@@ -78,7 +78,6 @@ int TcpServer::incomingData(ATcpClient* c)
     return (0);
   if (c->socket()._rBuf.write(buffer, n) != true)
     return (-1);
-  std::cout << c->socket()._rBuf.rAvailable() << std::endl;
   c->incomingData();
   return (0);
 }
