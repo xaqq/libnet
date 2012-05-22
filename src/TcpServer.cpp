@@ -34,7 +34,7 @@ TcpServer       *TcpServer::instance()
   return _instance;
 }
 
-bool TcpServer::bindlol(unsigned short port /* = 4242 */)
+bool TcpServer::bind(unsigned short port /* = 4242 */)
 {
   struct sockaddr_in	sa;
   const  int            i = 1;

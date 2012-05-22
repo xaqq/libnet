@@ -65,7 +65,7 @@ namespace Net
      * @param port
      * @return true on success, false on error
      */
-    bool        bindlol(unsigned short port = 4242);
+    bool        bind(unsigned short port = 4242);
 
     /**
      * Makes the server listen.
