@@ -4,9 +4,9 @@
 using namespace Net;
 
 TcpSocket::TcpSocket(int fd /* = -1 */) :
-  _wBuf(1024, 12048),
-  _rBuf(1024, 12048),
-  _fd(fd)
+_fd(fd),
+_rBuf(1024, 12048),
+_wBuf(1024, 12048)
 {
 
 }

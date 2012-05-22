@@ -4,8 +4,8 @@
 using namespace Net;
 
 RingBuffer::RingBuffer(int size, int maxSize /* = 0 */) :
-_size(size + 1),
 _data(0),
+_size(size + 1),
 _s(0),
 _e(0)
 {
@@ -94,7 +94,7 @@ int RingBuffer::read(std::string &target, int len)
 
   try
     {
-      if (target.size() < len)
+      if (target.size() < static_cast<unsigned int> (len))
         target.resize(len);
     }
   catch (std::bad_alloc &e)
