@@ -45,7 +45,7 @@ bool TcpServer::bind(unsigned short port /* = 4242 */)
   sa.sin_port = htons(port);
 
   setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, &i, sizeof (int) );
-  if (bind(_sock, (struct sockaddr *) &sa,
+  if (::bind(_sock, (struct sockaddr *) &sa,
 	   sizeof (struct sockaddr_in)) != 0)
     {
       perror("bind:");
