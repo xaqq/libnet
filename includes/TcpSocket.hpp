@@ -61,6 +61,8 @@ namespace Net
      * @throw Does not throw
      */
     bool write(const char *source, int len);
+    
+    int read(char *target, int len);
 
     /**
      * Tries to flush the output buffer by writing to the socket.

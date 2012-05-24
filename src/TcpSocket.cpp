@@ -49,6 +49,11 @@ int TcpSocket::flush()
   return (0);
 }
 
+int            TcpSocket::read(char* target, int len)
+{
+  return _rBuf.read(target, len);
+}
+
 TcpSocket       &TcpSocket::operator>>(int &i)
 {
   _rBuf.read(reinterpret_cast<char *>(&i), 4);
