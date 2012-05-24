@@ -41,7 +41,7 @@ namespace Net
      * the client.
      */
     virtual void        disconnection() = 0;
-    
+    bool                write(const char *data, int len);
     int                 dataAvailable() const;
   } ;
 }

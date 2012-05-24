@@ -23,6 +23,11 @@ TcpSocket &ATcpClient::socket()
   return *_socket;
 }
 
+bool    ATcpClient::write(const char *data, int len)
+{
+  return (_socket.get()->write(data, len));
+}
+
 int     ATcpClient::dataAvailable() const
 {
   return _socket.get()->_rBuf.rAvailable();
