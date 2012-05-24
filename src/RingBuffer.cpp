@@ -14,7 +14,7 @@ _e(0)
   else
     _maxSize = maxSize;
   _data = stringPtr(new std::string);
-  _data.get()->resize(_size, '0');
+  _data.get()->resize(_size, '\0');
 }
 
 RingBuffer::~RingBuffer()
@@ -78,7 +78,7 @@ bool RingBuffer::write(const char* source, int len)
     {
       direct = _size - _e;
       direct = direct > len ? len : direct;
-      _data.get()->replace(_e, direct, source);
+      _data.get()->replace(_e, direct, source, direct);
       len -= direct;
       _e += direct;
       _e %= _size;

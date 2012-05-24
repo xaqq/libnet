@@ -1,5 +1,6 @@
 #include "TcpSocket.hpp"
 #include <errno.h>
+#include <iostream>
 
 using namespace Net;
 
