@@ -78,8 +78,9 @@ int TcpServer::incomingData(ATcpClient* c)
     return (0);
   if (c->socket()._rBuf.write(buffer, n) != true)
     return (-1);
-  c->incomingData();
-  return (0);
+  if (c->incomingData())
+    return 0;
+  return (1);
 }
 
 void TcpServer::loopOnClients()

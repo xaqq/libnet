@@ -80,7 +80,7 @@ namespace Net
      * @return false is an error occurred (should not happen)
      */
     bool        run(int timeout = 0);
-
+    
     typedef ATcpClient *(*factoryPtr)(void);
     /**
      * This is a factory's function pointer which points to a user defined

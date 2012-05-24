@@ -48,3 +48,9 @@ int TcpSocket::flush()
     }
   return (0);
 }
+
+TcpSocket       &TcpSocket::operator>>(int &i)
+{
+  _rBuf.read(reinterpret_cast<char *>(&i), 4);
+  return *this;
+}

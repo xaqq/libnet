@@ -31,8 +31,9 @@ namespace Net
 
     /**
      * User function called whenever data were read from socket
+     * @return If you return false here, the client will be disconnected
      */
-    virtual void        incomingData() = 0;
+    virtual bool        incomingData() = 0;
     /**
      * Called when client's socket is disconnected.
      * When this function is called, the client gets removed from the TcpServer

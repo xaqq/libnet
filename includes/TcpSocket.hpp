@@ -68,6 +68,8 @@ namespace Net
      */
     int flush();
 
+    
+    TcpSocket &operator>>(int &i);
     friend class TcpServer;
     friend class ATcpClient;
   } ;
