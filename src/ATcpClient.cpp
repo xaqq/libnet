@@ -1,5 +1,6 @@
 #include "ATcpClient.hpp"
 #include "TcpSocket.hpp"
+#include <iostream>
 
 using namespace Net;
 
@@ -20,4 +21,9 @@ const TcpSocket &ATcpClient::socket() const
 TcpSocket &ATcpClient::socket()
 {
   return *_socket;
+}
+
+int     ATcpClient::dataAvailable() const
+{
+  return _socket.get()->_rBuf.rAvailable();
 }

@@ -69,6 +69,7 @@ namespace Net
     int flush();
 
     friend class TcpServer;
+    friend class ATcpClient;
   } ;
 }
 

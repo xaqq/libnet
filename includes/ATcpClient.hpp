@@ -40,6 +40,8 @@ namespace Net
      * the client.
      */
     virtual void        disconnection() = 0;
+    
+    int                 dataAvailable() const;
   } ;
 }
 
