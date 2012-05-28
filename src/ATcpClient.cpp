@@ -28,6 +28,11 @@ bool    ATcpClient::write(const char *data, int len)
   return (_socket.get()->write(data, len));
 }
 
+bool    ATcpClient::writeInt(int v)
+{
+  return write(reinterpret_cast<char *> (&v), sizeof(int));
+}
+
 int     ATcpClient::dataAvailable() const
 {
   return _socket.get()->_rBuf.rAvailable();

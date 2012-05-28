@@ -42,6 +42,7 @@ namespace Net
      */
     virtual void        disconnection() = 0;
     bool                write(const char *data, int len);
+    bool                writeInt(int i);
     int                 dataAvailable() const;
   } ;
 }
