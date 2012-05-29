@@ -1,4 +1,5 @@
 #include "TcpSocket.hpp"
+#include <unistd.h>
 #include <errno.h>
 #include <iostream>
 
@@ -43,7 +44,10 @@ int TcpSocket::flush()
         {
           if (errno != EWOULDBLOCK &&
               errno != EAGAIN)
-            return (-1);
+            {
+              std::cerr << "Cannot write on socket" << std::endl;
+              return (-1);
+            }
           _wBuf.readRollback();
         }
     }
@@ -57,6 +61,6 @@ int            TcpSocket::read(char* target, int len)
 
 TcpSocket       &TcpSocket::operator>>(int &i)
 {
-  _rBuf.read(reinterpret_cast<char *>(&i), 4);
+  _rBuf.read(reinterpret_cast<char *> (&i), 4);
   return *this;
 }

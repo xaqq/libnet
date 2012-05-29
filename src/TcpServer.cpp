@@ -1,6 +1,7 @@
 #include	"TcpServer.hpp"
 #include	"TcpSocket.hpp"
 #include	<iostream>
+#include	<unistd.h>
 #include	<errno.h>
 #include	<cstdio>
 #include	<stdlib.h>
