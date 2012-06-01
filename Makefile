@@ -5,7 +5,7 @@
 ## Login   <kapp_a@epitech.net>
 ##
 ## Started on  Tue Feb 14 18:18:42 2012 arnaud kapp
-## Last update Sun May 20 04:20:55 2012 arnaud kapp
+## Last update Fri Jun  1 04:33:53 2012 arnaud kapp
 ##
 
 NAME=		libmynet.so
@@ -17,7 +17,7 @@ SRC=		src/ATcpClient.cpp \
 
 OBJ=		$(SRC:.cpp=.o)
 
-CXXFLAGS+=	-O3 -W -Wall -I ./includes -fPIC
+CXXFLAGS+=	-O2 -W -Wall -I ./includes -fPIC
 
 $(NAME):	$(OBJ)
 		g++ -fPIC -o $(NAME) $(OBJ) -shared

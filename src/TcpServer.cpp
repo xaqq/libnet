@@ -47,7 +47,7 @@ bool TcpServer::bind(unsigned short port /* = 4242 */)
 
   setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, &i, sizeof (int) );
   if (::bind(_sock, (struct sockaddr *) &sa,
-	   sizeof (struct sockaddr_in)) != 0)
+             sizeof (struct sockaddr_in) ) != 0)
     {
       perror("bind:");
       return (false);
@@ -96,7 +96,7 @@ void TcpServer::loopOnClients()
       if (FD_ISSET((*it)->socket().fd(), &_wSet) == 1)
         del |= (*it)->socket().flush();
       if (FD_ISSET((*it)->socket().fd(), &_rSet) == 1)
-	del |= incomingData(*it);
+        del |= incomingData(*it);
       if (del)
         {
           (*it)->disconnection();

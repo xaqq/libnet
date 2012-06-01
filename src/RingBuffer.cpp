@@ -1,4 +1,5 @@
 #include "RingBuffer.hpp"
+#include <cstring>
 #include <new>
 
 using namespace Net;
@@ -31,18 +32,18 @@ bool RingBuffer::resize(int add)
   newBuffer = stringPtr(new (std::nothrow) std::string);
   if (!newBuffer.get())
     return false;
-  if ((r = rAvailable()))
-    if (read(*newBuffer, r) == 0)
-      return false;
   try
     {
-      newBuffer->resize(newBuffer->size() + add);
+      newBuffer->resize(_data.get()->size() + add);
     }
   catch (std::bad_alloc &e)
     {
       readRollback();
       return false;
     }
+  if ((r = rAvailable()))
+    if (read(*newBuffer, r) == 0)
+      return false;
   _data = stringPtr(newBuffer);
   _s = 0;
   _lastStart = 0;
@@ -78,7 +79,8 @@ bool RingBuffer::write(const char* source, int len)
     {
       direct = _size - _e;
       direct = direct > len ? len : direct;
-      _data.get()->replace(_e, direct, source, direct);
+      /*      _data.get()->replace(_e, direct, source, direct);*/
+      memcpy(&((*_data)[_e]), source, direct);
       len -= direct;
       _e += direct;
       _e %= _size;
@@ -129,7 +131,8 @@ void RingBuffer::read_(char *target, int len, int &readBytes)
     len = rAvailable();
   direct = _size - _s;
   direct = direct > len ? len : direct;
-  _data.get()->copy(target, direct, _s);
+  /*  _data.get()->copy(target, direct, _s);*/
+  memcpy(target, &((*_data)[_s]), direct);
   readBytes += direct;
   len -= direct;
   _s += direct;
