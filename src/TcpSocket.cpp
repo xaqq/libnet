@@ -7,8 +7,8 @@ using namespace Net;
 
 TcpSocket::TcpSocket(int fd /* = -1 */) :
 _fd(fd),
-_rBuf(1024, 12048),
-_wBuf(1024, 12048)
+_rBuf(1024 * 1024, 0),
+_wBuf(1024 * 1024, 0)
 {
 
 }
@@ -32,15 +32,16 @@ bool TcpSocket::write(const char *source, int len)
 
 int TcpSocket::flush()
 {
-  char                  buffer[512];
+  char                  buffer[1024 * 1024];
   int			r;
+  int			ret;
 
   r = _wBuf.rAvailable();
-  r = r > 512 ? 512 : r;
+  r = r > sizeof (buffer) ?  sizeof (buffer) : r;
   if (r)
     {
       _wBuf.read(&buffer[0], r);
-      if (::write(_fd, (char *) buffer, r) == -1)
+      if ((ret = ::write(_fd, (char *) buffer, r)) == -1)
         {
           if (errno != EWOULDBLOCK &&
               errno != EAGAIN)
@@ -50,6 +51,8 @@ int TcpSocket::flush()
             }
           _wBuf.readRollback();
         }
+      if (ret != r) /* we didnt write everything */
+        _wBuf.readRollback(r - ret);
     }
   return (0);
 }

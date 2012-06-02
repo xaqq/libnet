@@ -1,6 +1,8 @@
 #include "RingBuffer.hpp"
+#include <iostream>
 #include <cstring>
 #include <new>
+#include <stdlib.h>
 
 using namespace Net;
 
@@ -121,6 +123,19 @@ bool RingBuffer::readRollback()
     return false;
   _s = _lastStart;
   return true;
+}
+
+void RingBuffer::readRollback(int diff)
+{
+  int           tmp;
+
+  tmp = _s;
+  tmp -= diff;
+  tmp %= _size;
+  if (tmp < 0)
+    _s = _size - abs(tmp);
+  else
+    _s = tmp;
 }
 
 void RingBuffer::read_(char *target, int len, int &readBytes)

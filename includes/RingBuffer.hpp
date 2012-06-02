@@ -103,6 +103,12 @@ namespace Net
      * @throw Does not throw
      */
     bool readRollback();
+    
+    /**
+     * Rollback diff bytes
+     * @param diff
+     */
+    void readRollback(int diff);
 
     /**
      * Returns the number of readable characters

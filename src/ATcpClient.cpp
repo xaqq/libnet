@@ -25,7 +25,10 @@ TcpSocket &ATcpClient::socket()
 
 bool    ATcpClient::write(const char *data, int len)
 {
-  return (_socket.get()->write(data, len));
+  if (!_socket.get()->write(data, len))
+    {
+      std::cerr << "Network error: Buffer is full" << std::endl;
+    }
 }
 
 bool    ATcpClient::writeInt(int v)
