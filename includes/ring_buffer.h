@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:32:42 2012 arnaud kapp
-** Last update Sat Jun  9 17:02:39 2012 arnaud kapp
+** Last update Sat Jun  9 17:15:52 2012 arnaud kapp
 */
 
 #ifndef	RINGBUFFER_H
@@ -35,6 +35,6 @@ int		rgbuf_read(t_ring_buff *b, unsigned char *d, int s);
 int		rgbuf_r_available(t_ring_buff *b);
 int		rgbuf_w_available(t_ring_buff *b);
 int		rgbuf_read_rb(t_ring_buff *b);
-int		rgbuf_read_rb_x(t_ring_buff *b, int x);
+void		rgbuf_read_rb_x(t_ring_buff *b, int x);
 
 #endif /* !RINGBUFFER_H */

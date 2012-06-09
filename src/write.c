@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Sat Jun  9 17:07:14 2012 arnaud kapp
+** Last update Sat Jun  9 17:15:56 2012 arnaud kapp
 */
 
 #include	<errno.h>
@@ -18,6 +18,7 @@
 #include	<sys/ioctl.h>
 #include	"tcpsrv_i.h"
 #include	"tcpclient.h"
+#include	"ring_buffer.h"
 
 int			write_to_sock(t_tcp_client *c)
 {
@@ -26,7 +27,7 @@ int			write_to_sock(t_tcp_client *c)
   int			ret;
 
   r = rgbuf_r_available(c->sock.wbuffer);
-  r = r > sizeof(buffer) ? sizeof(buffer) : r;
+  r = r > (int)sizeof(buffer) ? (int)sizeof(buffer) : r;
   if (r)
     {
       rgbuf_read(c->sock.wbuffer, buffer, r);
@@ -39,7 +40,7 @@ int			write_to_sock(t_tcp_client *c)
 	}
       else if (ret != r)
 	{
-	  rguff_read_rb_x(c->sock.wbuffer, r - ret);
+	  rgbuf_read_rb_x(c->sock.wbuffer, r - ret);
 	}
     }
   return (0);
