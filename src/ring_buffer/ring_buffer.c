@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 21:48:40 2012 arnaud kapp
-** Last update Wed Apr 25 15:01:22 2012 arnaud kapp
+** Last update Sat Jun  9 17:04:34 2012 arnaud kapp
 */
 
 #include	<stdlib.h>
@@ -91,4 +91,17 @@ int		rgbuf_write(t_ring_buff *b, unsigned char *d, int s)
       return (s);
     }
   return (0);
+}
+
+int		rgbuf_read_rb_x(t_ring_buff *b, int x)
+{
+  int           tmp;
+
+  tmp = b->s;
+  tmp -= diff;
+  tmp %= b->size;
+  if (tmp < 0)
+    b->s = b->size - abs(tmp);
+  else
+    b->s = tmp;
 }

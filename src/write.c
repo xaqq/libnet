@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Tue Apr  3 16:13:44 2012 arnaud kapp
-** Last update Thu Apr 19 17:24:24 2012 arnaud kapp
+** Last update Sat Jun  9 17:07:14 2012 arnaud kapp
 */
 
 #include	<errno.h>
@@ -21,20 +21,25 @@
 
 int			write_to_sock(t_tcp_client *c)
 {
-  unsigned char		buffer[512];
+  unsigned char		buffer[1024 * 42];
   int			r;
+  int			ret;
 
   r = rgbuf_r_available(c->sock.wbuffer);
-  r = r > 512 ? 512 : r;
+  r = r > sizeof(buffer) ? sizeof(buffer) : r;
   if (r)
     {
       rgbuf_read(c->sock.wbuffer, buffer, r);
-      if (write(c->sock.fd, (char *)buffer, r) == -1)
+      if ((ret = write(c->sock.fd, (char *)buffer, r)) == -1)
 	{
 	  if (errno != EWOULDBLOCK &&
 	      errno != EAGAIN)
 	    return (-1);
 	  rgbuf_read_rb(c->sock.wbuffer);
+	}
+      else if (ret != r)
+	{
+	  rguff_read_rb_x(c->sock.wbuffer, r - ret);
 	}
     }
   return (0);
