@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Tue Jul  3 20:13:37 2012 arnaud kapp
+** Last update Tue Jul  3 21:01:49 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -85,6 +85,8 @@ static void		loop_on_clients()
 	del |= write_to_sock(c);
       if (FD_ISSET(c->sock.fd, &s->read_set) == 1)
 	del |= incomming_data(c);
+      else if (rgbuf_r_available(c->sock.buffer))
+	del |= __cb_incomming_data(c);
       if (del)
 	prev = c;
       else
