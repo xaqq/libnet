@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 16:43:52 2012 arnaud kapp
-** Last update Wed Apr 25 15:00:41 2012 arnaud kapp
+** Last update Tue Jul  3 20:12:59 2012 arnaud kapp
 */
 
 #ifndef	TCPSRV_H_
@@ -28,13 +28,17 @@ typedef struct s_tcp_server
 int	(*__cb_new_connection)(void **user_data);
 
 /*
+** Callback function for new incomming connection
+** It gives to the application a pointer to the new
+** "network" client.
+*/
+int	(*__cb_new_connection_2)(t_tcp_client *c);
+
+/*
 ** Callback function. Called when new data are avalaible
 ** for reading.
-<<<<<<< HEAD
 ** If is doesnt return 0, then the client will be kicked
 ** from server
-=======
->>>>>>> master
 */
 int	(*__cb_incomming_data)(t_tcp_client *c);
 

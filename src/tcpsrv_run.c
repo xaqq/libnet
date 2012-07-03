@@ -5,7 +5,7 @@
 ** Login   <kapp_a@epitech.net>
 **
 ** Started on  Wed Feb 22 17:38:29 2012 arnaud kapp
-** Last update Wed Apr 25 15:04:05 2012 arnaud kapp
+** Last update Tue Jul  3 20:13:37 2012 arnaud kapp
 */
 
 #define  _GNU_SOURCE
@@ -43,7 +43,10 @@ static int		check_new_connection()
     {
       c = tcpclient_create(fd);
       add_fd_to_rset(fd);
-      __cb_new_connection(&(c->data));
+      if (__cb_new_connection)
+	__cb_new_connection(&(c->data));
+      if (__cb_new_connection_2)
+	__cb_new_connection_2(c);
       return (1);
     }
   return (0);
