@@ -33,33 +33,36 @@ public:
      */
     bool dataAvailable();
 
-
     /**
      * Return the number of bytes that are still to be written into the
      * kernel socket buffer
      */
-    int pendingWriteBytes() const;
+    int pendingWriteBytes() const
+    {
+        return _wBuf.rAvailable();
+    }
 
     /**
      * Return the number of bytes that are available for reading
      * in the socket internal buff (NOT kernel buffer related)
      */
-    int availableBytes() const;
-
-    /**
-     * Append those bytes into the input buffer of the socket.
-     * This is usually called by the tcp server implementation.
-     * @param
-     */
-    bool appendReadableBytes(const char *, int len);
-
+    int availableBytes() const
+    {
+        return _rBuf.rAvailable();
+    }
 
     /**
      * Write some data to the underlaying socket buffer.
      * Should return false if an error occured.
      */
     bool writeSome();
-
+    /**
+     * Read some data from the underlying socket buffer.
+     * Should return false if an error occurred.
+     *
+     * Note that this function does NOT trigger the callback.
+     */
+    bool readSome();
 
     bool read(char *dest, int len);
 

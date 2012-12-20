@@ -38,13 +38,6 @@ public:
      */
     virtual int availableBytes() const = 0;
 
-    /**
-     * Append those bytes into the input buffer of the socket.
-     * This is usually called by the tcp server implementation.
-     * @param
-     */
-    virtual bool appendReadableBytes(const char *, int len) = 0;
-
 
     virtual bool read(char *dest, int len) = 0;
 
@@ -57,10 +50,18 @@ public:
 
 
     /**
-     * Write some data to the underlaying socket buffer.
-     * Should return false if an error occured.
+     * Write some data to the underlying socket buffer.
+     * Should return false if an error occurred.
      */
     virtual bool writeSome() = 0;
+
+    /**
+     * Read some data from the underlying socket buffer.
+     * Should return false if an error occurred.
+     *
+     * Note that this function does NOT trigger the callback.
+     */
+    virtual bool readSome() = 0;
 };
 }
 

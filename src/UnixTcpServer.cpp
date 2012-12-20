@@ -68,6 +68,21 @@ bool UnixTcpServer::listen(int max /* = 10 */)
     return true;
 }
 
+bool UnixTcpServer::stop()
+{
+    close(_sock);
+    for (auto it =  _clients.begin();
+            it != _clients.end();
+            ++it)
+    {
+        _closedConnectionCb((*it));
+        close((*it)->fd());
+    }
+    _clients.clear();
+
+    return true;
+}
+
 bool UnixTcpServer::run(int timeout /* = 0 */)
 {
     struct timeval t;
@@ -104,19 +119,10 @@ bool UnixTcpServer::process(std::shared_ptr<UnixTcpSocket> s)
             return false;
     if (FD_ISSET(s->fd(), &_rSet) == 1)
     {
-        int n;
-        char buffer[1024];
-
-        bzero(buffer, sizeof (buffer));
-        n = read(s->fd(), buffer, sizeof (buffer));
-        if (n == 0 || (n == -1 && (errno != EWOULDBLOCK &&
-                errno != EAGAIN)))
+        if (s->readSome())
+            return s->dataAvailable();
+        else
             return false;
-        if (s->appendReadableBytes(buffer, n) != true)
-            return false;
-        if (!s->dataAvailable())
-            return false;
-        return true;
     }
     return true;
 }
