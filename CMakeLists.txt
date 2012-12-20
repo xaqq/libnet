@@ -5,6 +5,8 @@ SET(CMAKE_CXX_FLAGS "-W -Wall -std=c++11")
 INCLUDE_DIRECTORIES("includes")
 
 SET(SRCS src/ServerFactory.cpp
-src/UnixTcpServer.cpp)
+src/UnixTcpServer.cpp
+src/UnixTcpSocket.cpp
+src/RingBuffer.cpp)
 
 ADD_LIBRARY (net SHARED ${SRCS})

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="88">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="/home/xaqq/Documents/rtype/server/libnet" name="libnet">
+      <df name="includes">
+        <in>ITcpServer.hpp</in>
+        <in>ITcpSocket.hpp</in>
+        <in>RingBuffer.hpp</in>
+        <in>ServerFactory.hpp</in>
+        <in>UnixTcpServer.hpp</in>
+        <in>UnixTcpSocket.hpp</in>
+      </df>
+      <df name="src">
+        <in>RingBuffer.cpp</in>
+        <in>ServerFactory.cpp</in>
+        <in>UnixTcpServer.cpp</in>
+        <in>UnixTcpSocket.cpp</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>/home/xaqq/Documents/rtype/server/libnet/CMakeLists.txt</itemPath>
+      <itemPath>/home/xaqq/Documents/rtype/server/libnet/Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>/home/xaqq/Documents/rtype/server/libnet</Elem>
+  </sourceRootList>
+  <projectmakefile>/home/xaqq/Documents/rtype/server/libnet/Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>/home/xaqq/Documents/rtype/server/libnet/build</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>includes</pElem>
+              <pElem>build</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>net_EXPORTS</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+      </makefileType>
+      <item path="/home/xaqq/Documents/rtype/server/libnet/includes/RingBuffer.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/xaqq/Documents/rtype/server/libnet/src/RingBuffer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool>
+        </ccTool>
+      </item>
+      <item path="includes/ITcpServer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ITcpSocket.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/ServerFactory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/UnixTcpServer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/UnixTcpSocket.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ServerFactory.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool>
+        </ccTool>
+      </item>
+      <item path="src/UnixTcpServer.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool>
+        </ccTool>
+      </item>
+      <item path="src/UnixTcpSocket.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool>
+        </ccTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

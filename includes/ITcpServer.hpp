@@ -36,7 +36,7 @@ public:
     /**
      * Process incomming data and new connection using callback.
      */
-    virtual bool run() = 0;
+    virtual bool run(int mstimeout) = 0;
 
     virtual void newConnectionCallback(std::function<bool (ITcpSocket *)>);
     virtual void connectionClosedCallback(std::function<void (ITcpSocket *)>);
