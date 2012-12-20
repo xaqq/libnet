@@ -22,7 +22,17 @@ public:
     bool start();
     bool stop();
 
-    void dataAvailableCallback(std::function<bool (void) >);
+    void dataAvailableCallback(std::function<bool (void) >c)
+    {
+        _callback = c;
+    }
+
+    /**
+     * Called by the TcpServer implementation. The class is supposed
+     * to forward the notification using the callback
+     */
+    bool dataAvailable();
+
 
     /**
      * Return the number of bytes that are still to be written into the
@@ -35,6 +45,20 @@ public:
      * in the socket internal buff (NOT kernel buffer related)
      */
     int availableBytes() const;
+
+    /**
+     * Append those bytes into the input buffer of the socket.
+     * This is usually called by the tcp server implementation.
+     * @param
+     */
+    bool appendReadableBytes(const char *, int len);
+
+
+    /**
+     * Write some data to the underlaying socket buffer.
+     * Should return false if an error occured.
+     */
+    bool writeSome();
 
 
     bool read(char *dest, int len);
@@ -53,6 +77,8 @@ public:
 
 private:
     UnixTcpSocket(const UnixTcpSocket& orig);
+
+    std::function<bool (void) > _callback;
 
     /**
      * The file descriptor associated with the socket.

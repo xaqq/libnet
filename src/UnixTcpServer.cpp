@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 #include "UnixTcpServer.hpp"
 #include "UnixTcpSocket.hpp"
@@ -79,11 +80,43 @@ bool UnixTcpServer::run(int timeout /* = 0 */)
         perror("select()");
         return false;
     }
-    else
+    for (auto it = _clients.begin();
+            it != _clients.end();)
     {
-        //        loopOnClients();
-        if (FD_ISSET(_sock, &_rSet))
-            while (newConnection());
+        if (!process((*it)))
+        {
+            _closedConnectionCb(*it);
+            it = _clients.erase(it);
+        }
+        else
+            ++it;
+    }
+
+    if (FD_ISSET(_sock, &_rSet))
+        while (newConnection());
+    return true;
+}
+
+bool UnixTcpServer::process(std::shared_ptr<UnixTcpSocket> s)
+{
+    if (FD_ISSET(s->fd(), &_wSet) == 1)
+        if (!s->writeSome())
+            return false;
+    if (FD_ISSET(s->fd(), &_rSet) == 1)
+    {
+        int n;
+        char buffer[1024];
+
+        bzero(buffer, sizeof (buffer));
+        n = read(s->fd(), buffer, sizeof (buffer));
+        if (n == 0 || (n == -1 && (errno != EWOULDBLOCK &&
+                errno != EAGAIN)))
+            return false;
+        if (s->appendReadableBytes(buffer, n) != true)
+            return false;
+        if (!s->dataAvailable())
+            return false;
+        return true;
     }
     return true;
 }
@@ -111,74 +144,6 @@ bool UnixTcpServer::newConnection()
     }
     return false;
 }
-
-//
-//int TcpServer::incomingData(ATcpClient* c)
-//{
-//    int n;
-//    char buffer[1024];
-//
-//    bzero(buffer, sizeof (buffer));
-//    n = read(c->socket().fd(), buffer, sizeof (buffer));
-//    if (n == 0 || (n == -1 && (errno != EWOULDBLOCK &&
-//            errno != EAGAIN)))
-//        return (-1);
-//    if (n == 0 || n == -1)
-//        return (0);
-//    if (c->socket()._rBuf.write(buffer, n) != true)
-//        return (-1);
-//    if (c->incomingData())
-//        return 0;
-//    return (1);
-//}
-//
-//void TcpServer::loopOnClients()
-//{
-//    int del;
-//
-//    for (clientsList::iterator it = _clients.begin();
-//            it != _clients.end();
-//            )
-//    {
-//        del = 0;
-//        if (FD_ISSET((*it)->socket().fd(), &_wSet) == 1)
-//            del |= (*it)->socket().flush();
-//        if (FD_ISSET((*it)->socket().fd(), &_rSet) == 1)
-//            del |= incomingData(*it);
-//        if (del)
-//        {
-//            (*it)->disconnection();
-//            it = _clients.erase(it);
-//        }
-//        else
-//            ++it;
-//    }
-//}
-//
-//bool TcpServer::checkNewConnection()
-//{
-//    struct sockaddr_in sclient;
-//    socklen_t sclient_l;
-//    ATcpClient *client;
-//    TcpSocket *sock;
-//    int fd;
-//
-//    sclient_l = sizeof (struct sockaddr_in);
-//    if ((fd = accept4(_sock, (struct sockaddr *) (&sclient),
-//                      &sclient_l, SOCK_NONBLOCK)) != -1)
-//    {
-//        client = _factory();
-//        if (!client)
-//            return false;
-//        if (!dynamic_cast<ATcpClient *> (client))
-//            return false;
-//        sock = new TcpSocket(fd);
-//        client->setSocket(sock);
-//        _clients.push_back(client);
-//        return true;
-//    }
-//    return false;
-//}
 
 void UnixTcpServer::fillSets()
 {

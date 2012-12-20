@@ -12,6 +12,7 @@
 #include <list>
 #include <memory>
 #include "ITcpServer.hpp"
+#include "UnixTcpSocket.hpp"
 
 namespace Net
 {
@@ -90,6 +91,8 @@ private:
     bool newConnection();
 
     void fillSets();
+
+    bool process(std::shared_ptr<UnixTcpSocket> s);
 };
 }
 #endif	/* UNIXTCPSERVER_HPP */

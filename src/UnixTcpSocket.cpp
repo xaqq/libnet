@@ -21,3 +21,7 @@ UnixTcpSocket::~UnixTcpSocket()
     close(_fd);
 }
 
+bool UnixTcpSocket::dataAvailable()
+{
+    return _callback();
+}
