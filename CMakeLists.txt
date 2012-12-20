@@ -1,8 +1,10 @@
 cmake_minimum_required (VERSION 2.6)
-PROJECT (libnet) 
+PROJECT (libnet)
 
-SET(CMAKE_CXX_FLAGS "-W -Wall")
+SET(CMAKE_CXX_FLAGS "-W -Wall -std=c++11")
+INCLUDE_DIRECTORIES("includes")
 
-SET(SRCS main.cpp)
+SET(SRCS src/ServerFactory.cpp
+src/UnixTcpServer.cpp)
 
 ADD_LIBRARY (net SHARED ${SRCS})
