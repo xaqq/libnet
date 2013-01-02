@@ -18,6 +18,7 @@ using namespace Net;
 
 UnixTcpServer::UnixTcpServer()
 {
+    _sock = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
 }
 
 UnixTcpServer::UnixTcpServer(const UnixTcpServer& orig)
@@ -71,9 +72,9 @@ bool UnixTcpServer::listen(int max /* = 10 */)
 bool UnixTcpServer::stop()
 {
     close(_sock);
-    for (auto it =  _clients.begin();
-            it != _clients.end();
-            ++it)
+    for (auto it = _clients.begin();
+         it != _clients.end();
+         ++it)
     {
         _closedConnectionCb((*it));
         close((*it)->fd());
@@ -96,7 +97,7 @@ bool UnixTcpServer::run(int timeout /* = 0 */)
         return false;
     }
     for (auto it = _clients.begin();
-            it != _clients.end();)
+         it != _clients.end();)
     {
         if (!process((*it)))
         {
@@ -162,8 +163,8 @@ void UnixTcpServer::fillSets()
     FD_SET(_sock, &_rSet);
     _maxFd = _sock > _maxFd ? _sock : _maxFd;
     for (auto it = _clients.begin();
-            it != _clients.end();
-            ++it)
+         it != _clients.end();
+         ++it)
     {
         fd = (*it)->fd();
         FD_SET(fd, &_rSet);

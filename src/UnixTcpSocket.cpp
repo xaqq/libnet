@@ -22,6 +22,16 @@ UnixTcpSocket::~UnixTcpSocket()
     close(_fd);
 }
 
+bool UnixTcpSocket::start()
+{
+    return true;
+}
+
+bool UnixTcpSocket::stop()
+{
+    return true;
+}
+
 bool UnixTcpSocket::dataAvailable()
 {
     return _callback();
@@ -63,7 +73,7 @@ bool UnixTcpSocket::readSome()
     if (n == 0 || (n == -1 && (errno != EWOULDBLOCK &&
             errno != EAGAIN)))
         return false;
-    return true;
+    return _rBuf.write(buffer, n);
 }
 
 bool UnixTcpSocket::read(char *dest, int len)

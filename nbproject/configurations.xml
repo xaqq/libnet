@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="88">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="/home/xaqq/Documents/rtype/server/libnet" name="libnet">
+    <df root="." name="libnet">
       <df name="includes">
         <in>ITcpServer.hpp</in>
         <in>ITcpSocket.hpp</in>
@@ -15,6 +15,7 @@
         <in>ServerFactory.cpp</in>
         <in>UnixTcpServer.cpp</in>
         <in>UnixTcpSocket.cpp</in>
+        <in>newmain.cpp</in>
       </df>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -27,7 +28,7 @@
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
-    <Elem>/home/xaqq/Documents/rtype/server/libnet</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>/home/xaqq/Documents/rtype/server/libnet/Makefile</projectmakefile>
   <confs>
@@ -55,27 +56,21 @@
           </ccTool>
         </makeTool>
       </makefileType>
-      <item path="/home/xaqq/Documents/rtype/server/libnet/includes/RingBuffer.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="/home/xaqq/Documents/rtype/server/libnet/src/RingBuffer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="8">
-        <ccTool>
-        </ccTool>
-      </item>
       <item path="includes/ITcpServer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ITcpSocket.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/RingBuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ServerFactory.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/UnixTcpServer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/UnixTcpSocket.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/RingBuffer.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="src/ServerFactory.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
@@ -87,6 +82,13 @@
       </item>
       <item path="src/UnixTcpSocket.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
+        </ccTool>
+      </item>
+      <item path="src/newmain.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool>
+          <incDir>
+            <pElem>includes</pElem>
+          </incDir>
         </ccTool>
       </item>
     </conf>

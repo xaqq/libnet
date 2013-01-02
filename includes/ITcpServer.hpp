@@ -38,8 +38,8 @@ public:
      */
     virtual bool run(int mstimeout) = 0;
 
-    virtual void newConnectionCallback(std::function<bool (ITcpSocket *)>);
-    virtual void connectionClosedCallback(std::function<void (ITcpSocket *)>);
+    virtual void newConnectionCallback(std::function<bool (std::shared_ptr<ITcpSocket>) > c) = 0;
+    virtual void connectionClosedCallback(std::function<void (std::shared_ptr<ITcpSocket>) > c) = 0;
 };
 }
 
