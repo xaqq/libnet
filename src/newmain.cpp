@@ -19,11 +19,14 @@
 using namespace Net;
 using namespace std;
 
+shared_ptr<IUdpServer> udp(0);
+
 class Lama
 {
 public:
     std::weak_ptr<ITcpSocket> sock;
-
+    std::pair<std::string, int> addr;
+    
     bool data(void)
     {
         std::cout << "Un lama est la ! avec des datas " << sock.lock()->availableBytes() << std::endl;
@@ -39,6 +42,7 @@ public:
     bool udpData(char *data, int s)
     {
         std::cout << "Udp Lama ! {" << data << "}" << std::endl;
+        udp->write(addr, "Stop me parler\n", strlen("Stop me parler\n"));
         return true;
     }
 
@@ -71,7 +75,6 @@ void sighandler(int s)
     run = 0;
 }
 
-shared_ptr<IUdpServer> udp(0);
 
 bool UDP_NEW(const std::string &addr, unsigned short port, char *data, int size)
 {
@@ -80,9 +83,11 @@ bool UDP_NEW(const std::string &addr, unsigned short port, char *data, int size)
 
     Lama *p = new Lama;
 
+    p->addr = std::make_pair(addr, port);
     std::function<bool (char *, int) > test = std::bind(&Lama::udpData, p, std::placeholders::_1,
                                                         std::placeholders::_2);
     udp->registerFunctor(std::make_pair(addr, port), test);
+    udp->write(p->addr, "coucou\n", 7);
 }
 
 int main(int argc, char** argv)

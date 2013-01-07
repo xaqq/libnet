@@ -74,9 +74,25 @@ bool UnixUdpServer::run()
 
         ip = inet_ntoa(reinterpret_cast<struct sockaddr_in *> (&addr)->sin_addr);
         port = reinterpret_cast<struct sockaddr_in *> (&addr)->sin_port;
-
         dispatch(ip, port, buffer, ret);
     }
+}
+
+bool UnixUdpServer::write(std::pair<std::string, int> target, char* data, int size)
+{
+    int ret;
+    socklen_t tolen;
+    struct sockaddr_storage addr;
+    
+    tolen = sizeof(struct sockaddr_storage);
+    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_addr.s_addr = inet_addr(target.first.c_str());
+    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_port = target.second;
+    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_family = AF_INET;
+    ret = ::sendto(_sock, data, size, 0, reinterpret_cast<const struct sockaddr *>(&addr), tolen);
+    
+    if (ret != size)
+        return false;
+    return true;
 }
 
 void UnixUdpServer::dispatch(const std::string& ip, unsigned short port, char* data, int size)

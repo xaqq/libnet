@@ -37,7 +37,9 @@ namespace Net
 
         void registerFunctor(std::pair<std::string, int> origin,
                 std::function<bool (char *data, int size) > c);
-
+        
+        bool write(std::pair<std::string, int> target, char *data, int size);
+        
     private:
         int _sock;
         std::map<std::pair<std::string, int>,
