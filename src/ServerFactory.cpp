@@ -6,7 +6,18 @@
  */
 
 #include "ServerFactory.hpp"
+
+#ifdef _WIN32
+#include "WinTcpServer.hpp"
+#else
 #include "UnixTcpServer.hpp"
+#endif
+
+#ifdef _WIN32
+#include "WinUdpServer.hpp"
+#else
+#include "UnixUdpServer.hpp"
+#endif
 
 using namespace Net;
 
@@ -28,6 +39,16 @@ ITcpServer *ServerFactory::tcpServer()
     return new WinTcpServer();
 #else
     return new UnixTcpServer();
+#endif
+    return 0;
+}
+
+IUdpServer *ServerFactory::udpServer()
+{
+#ifdef _WIN32
+    return new WinUdpServer();
+#else
+    return new UnixUdpServer();
 #endif
     return 0;
 }

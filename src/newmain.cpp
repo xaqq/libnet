@@ -5,6 +5,7 @@
  * Created on January 2, 2013, 2:33 PM
  */
 
+#include <cstring>
 #include <signal.h>
 #include <iostream>
 #include <cstdlib>
@@ -13,6 +14,7 @@
 #include "../includes/ServerFactory.hpp"
 #include "../includes/ITcpServer.hpp"
 #include "../includes/ITcpSocket.hpp"
+#include "../includes/IUdpServer.hpp"
 
 using namespace Net;
 using namespace std;
@@ -25,6 +27,18 @@ public:
     bool data(void)
     {
         std::cout << "Un lama est la ! avec des datas " << sock.lock()->availableBytes() << std::endl;
+        char buff[1024];
+
+        bzero(buff, 1024);
+        sock.lock()->read(buff, 1024);
+        if (strcmp(buff, "bye\n") == 0)
+            return false;
+        return true;
+    }
+
+    bool udpData(char *data, int s)
+    {
+        std::cout << "Udp Lama ! {" << data << "}" << std::endl;
         return true;
     }
 
@@ -54,26 +68,46 @@ int run = 1;
 
 void sighandler(int s)
 {
- run = 0;   
+    run = 0;
 }
 
-/*
- * 
- */
+shared_ptr<IUdpServer> udp(0);
+
+bool UDP_NEW(const std::string &addr, unsigned short port, char *data, int size)
+{
+    std::cout << "New UDP packet from unkown source: " << addr << ":" << port << std::endl;
+    std::cout << "Data {" << data << "}" << std::endl;
+
+    Lama *p = new Lama;
+
+    std::function<bool (char *, int) > test = std::bind(&Lama::udpData, p, std::placeholders::_1,
+                                                        std::placeholders::_2);
+    udp->registerFunctor(std::make_pair(addr, port), test);
+}
+
 int main(int argc, char** argv)
 {
     shared_ptr<ITcpServer> tcp(ServerFactory::tcpServer());
+    udp = std::shared_ptr<IUdpServer>(ServerFactory::udpServer());
 
+    udp->start("0.0.0.0", 1338);
     tcp->start("0.0.0.0", 1337);
+
     std::function<bool (shared_ptr<ITcpSocket>) > lama = &new_con;
     std::function<void (shared_ptr<ITcpSocket>) > lama2 = &closed_con;
     tcp->newConnectionCallback(lama);
     tcp->connectionClosedCallback(lama2);
+
+    udp->unknownSourceCallback(std::function<bool (const std::string &addr,
+                               unsigned short port, char *data, int size) > (&UDP_NEW));
     signal(SIGINT, &sighandler);
     while (1)
     {
         if (run)
+        {
             tcp->run(10);
+            udp->run();
+        }
         else break;
     }
     //delete l;

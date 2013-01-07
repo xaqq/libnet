@@ -5,6 +5,8 @@
       <df name="includes">
         <in>ITcpServer.hpp</in>
         <in>ITcpSocket.hpp</in>
+        <in>IUdpServer.hpp</in>
+        <in>IUdpSocket.hpp</in>
         <in>RingBuffer.hpp</in>
         <in>ServerFactory.hpp</in>
         <in>UnixTcpServer.hpp</in>
@@ -15,6 +17,7 @@
         <in>ServerFactory.cpp</in>
         <in>UnixTcpServer.cpp</in>
         <in>UnixTcpSocket.cpp</in>
+        <in>UnixUdpServer.cpp</in>
         <in>newmain.cpp</in>
       </df>
     </df>
@@ -60,6 +63,10 @@
       </item>
       <item path="includes/ITcpSocket.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="includes/IUdpServer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="includes/IUdpSocket.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="includes/RingBuffer.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="includes/ServerFactory.hpp" ex="false" tool="3" flavor2="0">
@@ -83,6 +90,8 @@
       <item path="src/UnixTcpSocket.cpp" ex="false" tool="1" flavor2="8">
         <ccTool>
         </ccTool>
+      </item>
+      <item path="src/UnixUdpServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/newmain.cpp" ex="false" tool="1" flavor2="0">
         <ccTool>

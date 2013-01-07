@@ -7,6 +7,7 @@ INCLUDE_DIRECTORIES("includes")
 SET(SRCS src/ServerFactory.cpp
 src/UnixTcpServer.cpp
 src/UnixTcpSocket.cpp
+src/UnixUdpServer.cpp
 src/RingBuffer.cpp)
 
 ADD_LIBRARY (net SHARED ${SRCS})

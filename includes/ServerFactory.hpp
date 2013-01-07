@@ -11,12 +11,14 @@
 namespace Net
 {
 class ITcpServer;
+class IUdpServer;
 
 class ServerFactory
 {
 public:
 
     static ITcpServer *tcpServer();
+    static IUdpServer *udpServer();
 
 private:
     ServerFactory();

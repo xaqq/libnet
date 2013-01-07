@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <stdexcept>
 
 #include "UnixTcpServer.hpp"
 #include "UnixTcpSocket.hpp"
@@ -19,6 +20,8 @@ using namespace Net;
 UnixTcpServer::UnixTcpServer()
 {
     _sock = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
+    if (_sock == -1)
+        throw std::runtime_error("Cannot create TcpServer socket");
 }
 
 UnixTcpServer::UnixTcpServer(const UnixTcpServer& orig)
