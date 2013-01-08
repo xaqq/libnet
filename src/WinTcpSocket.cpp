@@ -43,6 +43,7 @@ bool WinTcpSocket::writeSome()
     int r;
     int ret;
 	DWORD nb_read;
+	DWORD flags = 0;
 
 	buffer.buf = tbuffer;
 	buffer.len = 1024 * 42;
@@ -51,7 +52,7 @@ bool WinTcpSocket::writeSome()
     if (r)
     {
         _wBuf.read(&tbuffer[0], r);
-		ret = WSASend(socket, &buffer, 1, &nb_read, 0, NULL, NULL);
+		ret = WSASend(socket, &buffer, 1, &nb_read, flags, NULL, NULL);
 		if (ret == SOCKET_ERROR)
         {
 			int err = WSAGetLastError();
@@ -69,13 +70,14 @@ bool WinTcpSocket::readSome()
 {
     int ret;
 	DWORD nb_read;
+	DWORD flags = 0;
 	WSABUF buffer;
     char tbuffer[1024];
 
 	buffer.buf = tbuffer;
 	buffer.len = 1024;
 	memset(tbuffer, 0, sizeof (buffer));
-	ret = WSARecv(socket, &buffer, 1, &nb_read, 0, NULL, NULL);
+	ret = WSARecv(socket, &buffer, 1, &nb_read, &flags, NULL, NULL);
 	if ((ret == 0 && nb_read == 0) || (ret == -1 && WSAGetLastError() != WSAEWOULDBLOCK))
         return false;
     return _rBuf.write(tbuffer, nb_read);

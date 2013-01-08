@@ -11,10 +11,10 @@
 #include <cstdlib>
 #include <functional>
 #include <memory>
-#include "../includes/ServerFactory.hpp"
-#include "../includes/ITcpServer.hpp"
-#include "../includes/ITcpSocket.hpp"
-#include "../includes/IUdpServer.hpp"
+#include "ServerFactory.hpp"
+#include "ITcpServer.hpp"
+#include "ITcpSocket.hpp"
+#include "IUdpServer.hpp"
 
 using namespace Net;
 using namespace std;
@@ -32,7 +32,7 @@ public:
         std::cout << "Un lama est la ! avec des datas " << sock.lock()->availableBytes() << std::endl;
         char buff[1024];
 
-        bzero(buff, 1024);
+        memset(buff, 0, 1024);
         sock.lock()->read(buff, 1024);
         if (strcmp(buff, "bye\n") == 0)
             return false;
@@ -88,6 +88,7 @@ bool UDP_NEW(const std::string &addr, unsigned short port, char *data, int size)
                                                         std::placeholders::_2);
     udp->registerFunctor(std::make_pair(addr, port), test);
     udp->write(p->addr, "coucou\n", 7);
+	return (true);
 }
 
 int main(int argc, char** argv)
@@ -103,6 +104,7 @@ int main(int argc, char** argv)
     tcp->newConnectionCallback(lama);
     tcp->connectionClosedCallback(lama2);
 
+	
     udp->unknownSourceCallback(std::function<bool (const std::string &addr,
                                unsigned short port, char *data, int size) > (&UDP_NEW));
     signal(SIGINT, &sighandler);
@@ -112,7 +114,7 @@ int main(int argc, char** argv)
         {
             tcp->run(10);
             udp->run();
-        }
+        }	
         else break;
     }
     //delete l;

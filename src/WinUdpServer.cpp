@@ -52,24 +52,26 @@ bool WinUdpServer::stop()
 bool WinUdpServer::run()
 {
 	WSABUF buffer;
-    char tbuffer[1024 * 1024];
+    char tbuffer[1024 * 100];
     int fromlen;
 	DWORD nb_read;
-    struct sockaddr_storage addr;
+    struct sockaddr_in addr;
     int ret;
     std::string ip;
     unsigned short port;
 
 	buffer.buf = tbuffer;
-	buffer.len = 1024 * 1024;
+	buffer.len = 1024 * 100;
     while (1)
     {
-        memset(tbuffer, 0, sizeof(buffer));
-        fromlen = sizeof (struct sockaddr_storage);
-        ret = WSARecvFrom(_sock, &buffer, 1, &nb_read, 0,
-                       reinterpret_cast<sockaddr *> (&addr), &fromlen, NULL, NULL);
-		if (ret == -1 && WSAGetLastError() != EWOULDBLOCK)
+        memset(tbuffer, 0, sizeof(tbuffer));
+        fromlen = sizeof (addr);
+		DWORD flags = 0;
+        ret = WSARecvFrom(_sock, &buffer, 1, &nb_read, &flags,
+                       reinterpret_cast<SOCKADDR *> (&addr), &fromlen, NULL, NULL);
+		if (ret == -1 && WSAGetLastError() != WSAEWOULDBLOCK)
         {
+			int toto = WSAGetLastError();
             perror("UdpSocket");
             return false;
         }
@@ -124,7 +126,7 @@ bool WinUdpServer::bind(const std::string &ip, unsigned short port)
     sa.sin_family = AF_INET;
     sa.sin_addr.s_addr = inet_addr(ip.c_str());
     sa.sin_port = htons(port);
-
+	
     setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&i, sizeof (int));
     if (::bind(_sock, (struct sockaddr *) &sa,
                sizeof (struct sockaddr_in)) != 0)
