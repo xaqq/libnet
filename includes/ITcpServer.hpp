@@ -8,6 +8,7 @@
 #ifndef ITCPSERVER_HPP
 #define	ITCPSERVER_HPP
 
+#include <functional>
 #include <string>
 #include <memory>
 

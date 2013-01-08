@@ -8,6 +8,7 @@
 #ifndef ITCPSOCKET_HPP
 #define	ITCPSOCKET_HPP
 
+#include <functional>
 #include <memory>
 
 namespace Net
