@@ -37,7 +37,7 @@ public:
         _unkownSourceCallback = c;
     }
 
-    void registerFunctor(std::pair<std::string, int> origin,
+    void registerFunctor(std::pair<std::string, unsigned short> origin,
                          std::function<bool (char *data, int size) > c);
 
     void unregisterFunctor(std::pair<std::string, unsigned short> origin);

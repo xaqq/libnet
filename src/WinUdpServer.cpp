@@ -30,7 +30,7 @@ WinUdpServer::~WinUdpServer()
     WSACleanup();
 }
 
-void WinUdpServer::registerFunctor(std::pair<std::string, int> origin,
+void WinUdpServer::registerFunctor(std::pair<std::string, unsigned short> origin,
                                    std::function<bool (char *data, int size) > c)
 {
     _functors[origin] = c;
@@ -85,7 +85,7 @@ bool WinUdpServer::run()
 
         ip = inet_ntoa(reinterpret_cast<struct sockaddr_in *> (&addr)->sin_addr);
         port = reinterpret_cast<struct sockaddr_in *> (&addr)->sin_port;
-        dispatch(ip, port, tbuffer, ret);
+        dispatch(ip, port, tbuffer, nb_read);
     }
 }
 

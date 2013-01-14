@@ -45,10 +45,12 @@ bool WinTcpSocket::writeSome()
 	DWORD nb_read;
 	DWORD flags = 0;
 
+
 	buffer.buf = tbuffer;
 	buffer.len = 1024 * 42;
     r = _wBuf.rAvailable();
-    r = r > static_cast<int>(sizeof (tbuffer)) ? static_cast<int>(sizeof (tbuffer)) : r;
+    r = r > 42*1024 ? 42*1024 : r;
+	buffer.len = r;
     if (r)
     {
         _wBuf.read(&tbuffer[0], r);
