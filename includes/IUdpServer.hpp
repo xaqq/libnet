@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   IUdpServer.hpp
  * Author: xaqq
  *
@@ -41,15 +41,16 @@ namespace Net
         /**
          * Write to a specified client. Target is identified using its address and
          * its destination port.
-         * @param 
-         * @param 
+         * @param
+         * @param
          */
         virtual bool write(std::pair<std::string, int> target, char *data, int size) = 0;
-        
+
         virtual void unknownSourceCallback(std::function<bool (const std::string &addr,
                 unsigned short port, char *data, int size) > c) = 0;
-        virtual void registerFunctor(std::pair<std::string, int> origin,
+        virtual void registerFunctor(std::pair<std::string, unsigned short> origin,
                 std::function<bool (char *data, int size) >) = 0;
+        virtual void unregisterFunctor(std::pair<std::string, unsigned short> origin) = 0;
     };
 }
 

@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   WinUdpServer.cpp
  * Author: toutouyoutou
- * 
+ *
  * Created on January 7, 2013, 2:14 PM
  */
 
@@ -17,23 +17,28 @@ using namespace Net;
 
 WinUdpServer::WinUdpServer()
 {
-	WSAStartup(MAKEWORD(2,2), &WSAdata);
+    WSAStartup(MAKEWORD(2, 2), &WSAdata);
     _sock = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
-	u_long i = 1;
+    u_long i = 1;
     if (_sock == -1)
         throw std::runtime_error("Cannot create UdpServer socket");
-	ioctlsocket(_sock, FIONBIO, &i);
+    ioctlsocket(_sock, FIONBIO, &i);
 }
 
 WinUdpServer::~WinUdpServer()
 {
-	WSACleanup();
+    WSACleanup();
 }
 
 void WinUdpServer::registerFunctor(std::pair<std::string, int> origin,
-                                    std::function<bool (char *data, int size) > c)
+                                   std::function<bool (char *data, int size) > c)
 {
     _functors[origin] = c;
+}
+
+void WinUdpServer::unregisterFunctor(std::pair<std::string, unsigned short> origin)
+{
+    _functors.erase(origin);
 }
 
 bool WinUdpServer::start(const std::string& ip, unsigned short port)
@@ -51,27 +56,27 @@ bool WinUdpServer::stop()
 
 bool WinUdpServer::run()
 {
-	WSABUF buffer;
+    WSABUF buffer;
     char tbuffer[1024 * 100];
     int fromlen;
-	DWORD nb_read;
+    DWORD nb_read;
     struct sockaddr_in addr;
     int ret;
     std::string ip;
     unsigned short port;
 
-	buffer.buf = tbuffer;
-	buffer.len = 1024 * 100;
+    buffer.buf = tbuffer;
+    buffer.len = 1024 * 100;
     while (1)
     {
-        memset(tbuffer, 0, sizeof(tbuffer));
+        memset(tbuffer, 0, sizeof (tbuffer));
         fromlen = sizeof (addr);
-		DWORD flags = 0;
+        DWORD flags = 0;
         ret = WSARecvFrom(_sock, &buffer, 1, &nb_read, &flags,
-                       reinterpret_cast<SOCKADDR *> (&addr), &fromlen, NULL, NULL);
-		if (ret == -1 && WSAGetLastError() != WSAEWOULDBLOCK)
+                          reinterpret_cast<SOCKADDR *> (&addr), &fromlen, NULL, NULL);
+        if (ret == -1 && WSAGetLastError() != WSAEWOULDBLOCK)
         {
-			int toto = WSAGetLastError();
+            int toto = WSAGetLastError();
             perror("UdpSocket");
             return false;
         }
@@ -86,20 +91,20 @@ bool WinUdpServer::run()
 
 bool WinUdpServer::write(std::pair<std::string, int> target, char* data, int size)
 {
-	WSABUF buffer;
-	buffer.buf = data;
-	buffer.len = size;
+    WSABUF buffer;
+    buffer.buf = data;
+    buffer.len = size;
     int ret;
     int tolen;
-	DWORD nb_write;
+    DWORD nb_write;
     struct sockaddr_storage addr;
-    
-    tolen = sizeof(struct sockaddr_storage);
-    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_addr.s_addr = inet_addr(target.first.c_str());
-    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_port = target.second;
-    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_family = AF_INET;
-	ret = WSASendTo(_sock, &buffer, 1, &nb_write, 0, reinterpret_cast<const struct sockaddr *>(&addr), tolen, NULL, NULL);
-    
+
+    tolen = sizeof (struct sockaddr_storage);
+    reinterpret_cast<struct sockaddr_in *> (&addr)->sin_addr.s_addr = inet_addr(target.first.c_str());
+    reinterpret_cast<struct sockaddr_in *> (&addr)->sin_port = target.second;
+    reinterpret_cast<struct sockaddr_in *> (&addr)->sin_family = AF_INET;
+    ret = WSASendTo(_sock, &buffer, 1, &nb_write, 0, reinterpret_cast<const struct sockaddr *> (&addr), tolen, NULL, NULL);
+
     if (nb_write != size)
         return false;
     return true;
@@ -126,8 +131,8 @@ bool WinUdpServer::bind(const std::string &ip, unsigned short port)
     sa.sin_family = AF_INET;
     sa.sin_addr.s_addr = inet_addr(ip.c_str());
     sa.sin_port = htons(port);
-	
-    setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *)&i, sizeof (int));
+
+    setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, (char *) &i, sizeof (int));
     if (::bind(_sock, (struct sockaddr *) &sa,
                sizeof (struct sockaddr_in)) != 0)
     {

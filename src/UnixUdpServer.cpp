@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   UnixUdpServer.cpp
  * Author: xaqq
- * 
+ *
  * Created on January 7, 2013, 2:14 PM
  */
 
@@ -29,10 +29,15 @@ UnixUdpServer::~UnixUdpServer()
 {
 }
 
-void UnixUdpServer::registerFunctor(std::pair<std::string, int> origin,
+void UnixUdpServer::registerFunctor(std::pair<std::string, unsigned short> origin,
                                     std::function<bool (char *data, int size) > c)
 {
     _functors[origin] = c;
+}
+
+void UnixUdpServer::unregisterFunctor(std::pair<std::string, unsigned short> origin)
+{
+    _functors.erase(origin);
 }
 
 bool UnixUdpServer::start(const std::string& ip, unsigned short port)
@@ -44,7 +49,7 @@ bool UnixUdpServer::start(const std::string& ip, unsigned short port)
 
 bool UnixUdpServer::stop()
 {
-    close (_sock);
+    close(_sock);
     return true;
 }
 
@@ -59,12 +64,12 @@ bool UnixUdpServer::run()
 
     while (1)
     {
-        bzero(buffer, sizeof(buffer));
+        bzero(buffer, sizeof (buffer));
         fromlen = sizeof (struct sockaddr_storage);
         ret = recvfrom(_sock, &buffer, 1024 * 1024, 0,
                        reinterpret_cast<sockaddr *> (&addr), &fromlen);
         if (ret == -1 && errno != EWOULDBLOCK &&
-            errno != EAGAIN)
+                errno != EAGAIN)
         {
             perror("UdpSocket");
             return false;
@@ -83,13 +88,13 @@ bool UnixUdpServer::write(std::pair<std::string, int> target, char* data, int si
     int ret;
     socklen_t tolen;
     struct sockaddr_storage addr;
-    
-    tolen = sizeof(struct sockaddr_storage);
-    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_addr.s_addr = inet_addr(target.first.c_str());
-    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_port = target.second;
-    reinterpret_cast<struct sockaddr_in *>(&addr)->sin_family = AF_INET;
-    ret = ::sendto(_sock, data, size, 0, reinterpret_cast<const struct sockaddr *>(&addr), tolen);
-    
+
+    tolen = sizeof (struct sockaddr_storage);
+    reinterpret_cast<struct sockaddr_in *> (&addr)->sin_addr.s_addr = inet_addr(target.first.c_str());
+    reinterpret_cast<struct sockaddr_in *> (&addr)->sin_port = target.second;
+    reinterpret_cast<struct sockaddr_in *> (&addr)->sin_family = AF_INET;
+    ret = ::sendto(_sock, data, size, 0, reinterpret_cast<const struct sockaddr *> (&addr), tolen);
+
     if (ret != size)
         return false;
     return true;

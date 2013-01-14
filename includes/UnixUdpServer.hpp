@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   UnixUdpServer.h
  * Author: xaqq
  *
@@ -35,11 +35,13 @@ namespace Net
             _unkownSourceCallback = c;
         }
 
-        void registerFunctor(std::pair<std::string, int> origin,
+        void registerFunctor(std::pair<std::string, unsigned short> origin,
                 std::function<bool (char *data, int size) > c);
+
+        void unregisterFunctor(std::pair<std::string, unsigned short> origin);
         
         bool write(std::pair<std::string, int> target, char *data, int size);
-        
+
     private:
         int _sock;
         std::map<std::pair<std::string, int>,

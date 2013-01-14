@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   WinUdpServer.h
  * Author: toutouyoutou
  *
@@ -16,45 +16,47 @@
 namespace Net
 {
 
-    class WinUdpServer : public IUdpServer
+class WinUdpServer : public IUdpServer
+{
+public:
+    WinUdpServer();
+    WinUdpServer(const WinUdpServer& orig);
+    virtual ~WinUdpServer();
+
+    bool start(const std::string &ip, unsigned short port);
+    bool stop();
+
+    /**
+     * Process incomming data using callback.
+     */
+    bool run();
+
+    void unknownSourceCallback(std::function<bool (const std::string &addr,
+                               unsigned short port, char *data, int size) > c)
     {
-    public:
-        WinUdpServer();
-        WinUdpServer(const WinUdpServer& orig);
-        virtual ~WinUdpServer();
+        _unkownSourceCallback = c;
+    }
 
-        bool start(const std::string &ip, unsigned short port);
-        bool stop();
+    void registerFunctor(std::pair<std::string, int> origin,
+                         std::function<bool (char *data, int size) > c);
 
-        /**
-         * Process incomming data using callback.
-         */
-        bool run();
+    void unregisterFunctor(std::pair<std::string, unsigned short> origin);
 
-        void unknownSourceCallback(std::function<bool (const std::string &addr,
-                unsigned short port, char *data, int size) > c)
-        {
-            _unkownSourceCallback = c;
-        }
+    bool write(std::pair<std::string, int> target, char *data, int size);
 
-        void registerFunctor(std::pair<std::string, int> origin,
-                std::function<bool (char *data, int size) > c);
-        
-        bool write(std::pair<std::string, int> target, char *data, int size);
-        
-    private:
-		WSAData WSAdata;
-        SOCKET _sock;
-        std::map<std::pair<std::string, int>,
-        std::function<bool (char *data, int size) >> _functors;
+private:
+    WSAData WSAdata;
+    SOCKET _sock;
+    std::map<std::pair<std::string, int>,
+    std::function<bool (char *data, int size) >> _functors;
 
-        std::function<bool (const std::string &addr,
-                unsigned short port, char *data, int size) > _unkownSourceCallback;
+    std::function<bool (const std::string &addr,
+            unsigned short port, char *data, int size) > _unkownSourceCallback;
 
-        bool bind(const std::string &ip, unsigned short port);
-        void dispatch(const std::string &ip, unsigned short port, char *data, int size);
+    bool bind(const std::string &ip, unsigned short port);
+    void dispatch(const std::string &ip, unsigned short port, char *data, int size);
 
-    };
+};
 }
 #endif	/* WINUDPSERVER_H */
 
